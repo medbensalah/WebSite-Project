@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}تعرفشي؟!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('/css/Client.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <img src="{{ asset('/img/logo-web.png') }}" alt="logo">
+            </div>
+            <div class="menu">
+                <a href="{{ path('landing_page') }}" class="item {% if current == 0 %} active {% endif %}">
+                    {% include 'svg/home.svg.twig' %}
+                    <p class="title">Home</p>
+                </a>
+                <a href="{{ path('categories') }}" class="item {% if current == 1 %} active {% endif %}">
+                    {% include 'svg/interface.svg.twig' %}
+                    <p class="title">Categories</p>
+                </a>
+                <a href="#" class="item S {% if current == 2 %} active {% endif %} ">
+                    {% include 'svg/Search.svg.twig' %}
+                    <p class="title">Search</p>
+                     <input type="text" name="search">
+                </a>
+
+            </div>
+            <div class="loggedOut">
+                <a class="logIn" href="#">Log in</a>
+                <a class="signIn" href="#">Sign in</a>
+            </div>
+        </header>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
