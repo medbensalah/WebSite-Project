@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/admin_style.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/font-awesome/css/font-awesome.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<div class="navbar">
+    <nav class="nav">
+            <span class="acc">
+                connected as: img here
+            </span>
+        <button class="nav-item is-active" active-color="blue">Home</button>
+        <button class="nav-item" active-color="green">User mode</button>
+        <button class="nav-item" active-color="red">admin mode</button>
+        <span class="nav-indicator"></span>
+    </nav>
+</div>
+
+<div class="ct" id="t1">
+    <div class="ct" id="t2">
+        <div class="ct" id="t3">
+            <div class="ct" id="t4">
+                <section>
+                    <ul>
+                        <li>
+                            <a href="#t1"><i class="icon fa fa-home" id="uno"></i></a>
+                        </li>
+                        <li>
+                            <a href="#t2"><i class="icon fa fa-user" id="dos"></i></a>
+                        </li>
+                        <li>
+                            <a href="#t3"><i class="icon fa fa-briefcase" id="tres"></i></a>
+                        </li>
+                        <li>
+                            <a href="#t4"><i class="icon fa fa-dribbble" id="cuatro"></i></a>
+                        </li>
+                    </ul>
+
+                    <div class="page" id="p1">
+
+                        <li class="icon fa fa-home">
+                            {% block page1 %}
+                                <span class="title">
+                                            Home
+                                        </span>
+                                <span class="hint">
+                                            Like this pen to see the magic!...<br/> Just kidding, it won't happen anything but I'll be really happy If you do so.
+                                        </span>
+                            {% endblock %}
+                        </li>
+                    </div>
+
+                    <div class="page" id="p2">
+
+
+                        {% block page2 %}
+                            <li class="icon fa fa-keyboard-o">
+                                        <span class="title">
+                                            Type
+                                        </span>
+                            </li>
+                        {% endblock %}
+                    </div>
+
+
+                    <div class="page" id="p3">
+                        {% block page3 %}
+                            <li class="icon fa fa-coffee">
+                                        <span class="title">
+                                            Coffee
+                                        </span>
+                            </li>
+                        {% endblock %}
+                    </div>
+
+
+                    <div class="page" id="p4">
+                        {% block page4 %}
+                            <li class="icon fa fa-dribbble">
+                                <span class="title">Dribbble</span>
+                                <span class="hint">
+                                            <a href="https://dribbble.com/rupok" target="_blank">
+                                                Follow me on Dribbble
+                                            </a>
+                                        </span>
+                            </li>
+                        {% endblock %}
+                    </div>
+                    <p class="credit"> Original Pen by <a href="https://codepen.io/hrtzt/">Alberto Hartzet</a></p>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% block javascripts %}
+    <script src="{{ asset('js/admin_navbar.js') }}"></script>
+{% endblock %}
+</body>
+</html>
