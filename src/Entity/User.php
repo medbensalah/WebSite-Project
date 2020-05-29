@@ -18,7 +18,7 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="bigint", nullable=true)
+     * @ORM\Column(type="bigint")
      */
     private $phone;
 

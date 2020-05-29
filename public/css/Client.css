@@ -38,7 +38,7 @@ a {
     color:grey;
     padding:0 5px;
 }
-input {
+header input {
     display: none;
     height:2.5vw;
     position: relative;
