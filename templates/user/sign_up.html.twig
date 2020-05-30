@@ -3,5 +3,13 @@
 {% block title %}Sign Up!{% endblock %}
 
 {% block body %}
+    <div class="row">
+            {{ form_row(form.name) }}
+            {{ form_row(form.firstName) }}
+    </div>
     {{ form(form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/sign_up.css') }}">
 {% endblock %}

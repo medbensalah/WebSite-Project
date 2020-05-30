@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,14 +40,9 @@ class User
     private $birth;
 
     /**
-     * @ORM\Column(type="string", length=1)
+     * @ORM\Column(type="string", length=6)
      */
     private $gender;
-
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $location;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -61,6 +58,16 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photo;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="users")
+     */
+    private $governorate;
+
+    public function __construct()
+    {
+        $this->governorate = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,18 +134,6 @@ class User
         return $this;
     }
 
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(string $location): self
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -171,6 +166,37 @@ class User
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getGovernorate(): Collection
+    {
+        return $this->governorate;
+    }
+
+    public function addGovernorate(Location $governorate): self
+    {
+        if (!$this->governorate->contains($governorate)) {
+            $this->governorate[] = $governorate;
+            $governorate->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGovernorate(Location $governorate): self
+    {
+        if ($this->governorate->contains($governorate)) {
+            $this->governorate->removeElement($governorate);
+            // set the owning side to null (unless already changed)
+            if ($governorate->getUsers() === $this) {
+                $governorate->setUsers(null);
+            }
+        }
 
         return $this;
     }
