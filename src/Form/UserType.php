@@ -23,40 +23,26 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, [
-                'attr' => ['class' => 'name']
+            ->add('name')
+            ->add('firstName')
+            ->add('email', EmailType::class)
+            ->add('password', PasswordType::class)
+            ->add('phone', NumberType::class)
+            ->add('birth', BirthdayType::class)
+            ->add('photo')
+            ->add('governorate',null, [
+                'expanded' => false ,
+                'multiple' => false
             ])
-            ->add('firstName', null, array(
-                'attr' => ['class' => 'firstName']
-            ))
             ->add('gender', ChoiceType::class, array(
-                'choices' => [
-                    'male' => 'male',
-                    'female' => 'female'
-                ],
-                'attr' => ['class' => 'gender']
-            ))
-            ->add('email', EmailType::class, [
-                'attr' => ['class' => 'email']
-            ])
-            ->add('password', PasswordType::class, [
-                'attr' => ['class' => 'password']
-            ])
-            ->add('phone', NumberType::class, [
-                'attr' => ['class' => 'phone']
-            ])
-            ->add('birth', BirthdayType::class, [
-                'attr' => ['class' => 'birth']
-            ])
-            ->add('governorate', null, [
-                'attr' => ['class' => 'governorate']
-            ])
-            ->add('photo', null, [
-                'attr' => ['class' => 'photo']
-            ])
-            ->add('submit', SubmitType::class, [
-                'attr' => ['class' => 'submit']
-            ])
+                    'choices' => [
+                        'male' => 'male',
+                        'female' => 'female'
+                    ],
+                    'expanded' => true,
+                    'multiple' => false)
+            )
+            ->add('submit', SubmitType::class)
         ;
     }
 

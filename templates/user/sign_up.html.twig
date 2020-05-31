@@ -3,13 +3,36 @@
 {% block title %}Sign Up!{% endblock %}
 
 {% block body %}
-    <div class="row">
-            {{ form_row(form.name) }}
+    <div class="row" id="dataset1">
+        <div class="col-4">
             {{ form_row(form.firstName) }}
+        </div>
+        <div class="col-4">
+            {{ form_row(form.name) }}
+        </div>
     </div>
-    {{ form(form) }}
+    <div class="row" id="dataset2">
+        <div class="col-4">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col-4">
+            {{ form_row(form.password) }}
+        </div>
+    </div>
+    <div id="dataset3">
+        {{ form_row(form.phone) }}
+        {{ form_row(form.photo) }}
+        {{ form_row(form.birth) }}
+        {{ form_row(form.governorate) }}
+        <div class="row gender">
+            {{ form_row(form.gender) }}
+        </div>
+    </div>
+    {{ form_row(form.submit) }}
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}">
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/sign_up.css') }}">
 {% endblock %}

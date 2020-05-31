@@ -47,7 +47,7 @@ header input {
 .S {
     align-items: center;
 }
-.S:hover input {
+header .S:hover input {
     display: inline-block;
     margin-left:5px;
 }
