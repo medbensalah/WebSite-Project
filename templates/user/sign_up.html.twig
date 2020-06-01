@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Sign Up!{% endblock %}
 
 {% block body %}
+    {{ form_start(form) }}
     <div class="row" id="dataset1">
         <div class="col-4">
             {{ form_row(form.firstName) }}
@@ -22,18 +22,41 @@
     <div id="dataset3">
         {{ form_row(form.phone) }}
         {{ form_row(form.photo) }}
-        {{ form_row(form.birth) }}
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.birth) }}
+            </div>
+            <div class="col-6">
+                <div class="captcha">
+                    <div class="g-recaptcha" data-sitekey="6Ld9-f4UAAAAAIk8aKlP1EJYXUmG8K770hxFrNID"></div>
+                </div>
+            </div>
+        </div>
         {{ form_row(form.governorate) }}
         <div class="row gender">
             {{ form_row(form.gender) }}
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <input type="checkbox" name="terms" id="check1" value="1">
+            <label for="check1">I agree to the <a href="">Terms of use</a> </label>
+        </div>
+        <div class="row">
+            <input type="checkbox" name="privacy" id="check2" value="1">
+            <label for="check2">I've read and I agree to the <a href="">privacy policy</a> </label>
+        </div>
+    </div>
+
     {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}">
     {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <link rel="stylesheet" href="{{ asset('css/sign_up.css') }}">
 {% endblock %}
 

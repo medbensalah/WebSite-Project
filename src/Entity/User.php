@@ -64,6 +64,7 @@ class User
      */
     private $governorate;
 
+
     public function __construct()
     {
         $this->governorate = new ArrayCollection();

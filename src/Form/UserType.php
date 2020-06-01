@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\List_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\View\ChoiceListView;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -32,7 +33,8 @@ class UserType extends AbstractType
             ->add('photo')
             ->add('governorate',null, [
                 'expanded' => false ,
-                'multiple' => false
+                'multiple' => false,
+                'mapped' =>false
             ])
             ->add('gender', ChoiceType::class, array(
                     'choices' => [
