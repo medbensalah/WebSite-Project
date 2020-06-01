@@ -64,6 +64,11 @@ class User
      */
     private $governorate;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $verified;
+
 
     public function __construct()
     {
@@ -198,6 +203,18 @@ class User
                 $governorate->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVerified(): ?bool
+    {
+        return $this->verified;
+    }
+
+    public function setVerified(bool $verified): self
+    {
+        $this->verified = $verified;
 
         return $this;
     }
