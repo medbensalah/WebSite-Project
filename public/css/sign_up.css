@@ -21,7 +21,7 @@ fieldset {
 
 label {
     margin-top: 7px;
-    margin-right: 15px;
+    margin-right: 7px;
 }
 
 #dataset3 label {
@@ -97,14 +97,7 @@ fieldset > div {
     left: 20%;
     position: relative;
 }
-.rc-anchor-light {
-    background: #000000 !important;
-    color: #000000 !important;
-}
-.rc-anchor-normal{
-    background: #000000 !important;
-    color: #000000 !important;
-}
+
 @media only screen and (min-width: 768px) {
     .rc-anchor-light {
         transform:scale(0.85);
@@ -122,4 +115,10 @@ fieldset > div {
 }
 #check2 {
     margin-top: 5px !important;
+}
+
+.alert-danger {
+    border-radius: 20px !important;
+    margin: 10px !important;
+    background: #ffdf7e !important;
 }

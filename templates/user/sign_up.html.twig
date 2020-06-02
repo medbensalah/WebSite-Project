@@ -18,6 +18,16 @@
         <div class="col-4">
             {{ form_row(form.password) }}
         </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="user_password" class="required">Password</label>
+                <input type="password" id="user_password" name="passwordCheck" required="required" class="form-control"></div>
+        </div>
+        {% for message in app.session.flashBag.get('alert') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
     </div>
     <div id="dataset3">
         {{ form_row(form.phone) }}

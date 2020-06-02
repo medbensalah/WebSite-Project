@@ -1,0 +1,11 @@
+<h2>Welcome! {{ name }} {{ firstName }}</h2>
+<p>
+You are at one step from finalizing the registration process<br>
+In order to verify your email address enter the code below :<br>
+    <a href="{{ url('user.activate', {'id': id}) }}">click here to activate your account!</a>
+</p>
+<p style="font-size: 7pt">
+    If you have not requested registration please click on this link:<br>
+    <a href="{{ url('user.delete', {'id': id}) }}">click here to drop!</a>
+
+</p>
