@@ -30,7 +30,6 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('phone', NumberType::class)
             ->add('birth', BirthdayType::class)
-            ->add('photo')
             ->add('governorate',null, [
                 'expanded' => false ,
                 'multiple' => false,

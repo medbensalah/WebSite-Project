@@ -12,7 +12,7 @@ fieldset {
 }
 
 .form-control {
-    width: 20%;
+    width: 300px;
 }
 
 .col-4 .form-control {
@@ -70,7 +70,7 @@ fieldset > div {
 
 #dataset1 {
     background-color: rgba(230, 220, 105, 0.3);
-    margin: 50px 50px 50px 50px;
+    margin: 20px 50px 50px 50px;
     border: rgba(184, 134, 11, 0.5) 1px solid;
     border-radius: 30px;
     box-shadow: 0 0 13px -1px rgba(218, 165, 32, 0.6);
@@ -94,9 +94,12 @@ fieldset > div {
     margin-bottom: 10px !important;
 }
 .captcha {
-    left: 20%;
+    top: 90px;
+    right: 150px;
     position: relative;
+    float: right;
 }
+
 
 @media only screen and (min-width: 768px) {
     .rc-anchor-light {
@@ -121,4 +124,10 @@ fieldset > div {
     border-radius: 20px !important;
     margin: 10px !important;
     background: #ffdf7e !important;
+}
+
+h3 {
+    color: goldenrod;
+    margin-left: 20px;
+    margin-top: 20px;
 }

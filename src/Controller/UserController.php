@@ -44,6 +44,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
 
+        $session->set('user', $user);
         if ($form->isSubmitted() &&
         $form->isValid() &&
         ($request->request->get('terms') == 1) &&
@@ -57,7 +58,6 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('user.form');
             }
             try {
-                $session->set('user', $user);
                 $manager->persist($user);
                 $manager->flush();
                 return $this->redirectToRoute('email');
@@ -66,11 +66,22 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('user.form');
             }
         }
+        else {
+            if ($form->isSubmitted() &&
+                !(($request->request->get('terms') == 1) &&
+                ($request->request->get('privacy') == 1))) {
 
-        return $this->render('user/sign_up.html.twig', [
-            'form' => $form->createView(),
-            'current' => -1
-        ]);
+                $this->addFlash('required', "In order to proceed with the sign up you need to agree to our terms of use and privacy policy");
+            }
+            if ($form->isSubmitted() &&
+                !$captcha->captchaverify($request)) {
+                $this->addFlash('required', "In order to proceed with the sign up you need to confirm the reCAPTCHA");
+            }
+            return $this->render('user/sign_up.html.twig', [
+                'form' => $form->createView(),
+                'current' => -1
+            ]);
+        }
     }
 
     /**

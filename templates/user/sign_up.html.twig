@@ -2,6 +2,8 @@
 {% block title %}Sign Up!{% endblock %}
 
 {% block body %}
+    <h3>Fill this form to create an account!</h3>
+
     {{ form_start(form)}}
     <div class="row" id="dataset1">
         <div class="col-4">
@@ -30,19 +32,14 @@
         {% endfor %}
     </div>
     <div id="dataset3">
-        {{ form_row(form.phone) }}
-        {{ form_row(form.photo) }}
-        <div class="row">
-            <div class="col-6">
-                {{ form_row(form.birth) }}
-            </div>
-            <div class="col-6">
-                <div class="captcha">
-                    <div class="g-recaptcha" data-sitekey="6Ld9-f4UAAAAAIk8aKlP1EJYXUmG8K770hxFrNID"></div>
-                </div>
-            </div>
+
+        <div class="captcha">
+            <div class="g-recaptcha" data-sitekey="6Ld9-f4UAAAAAIk8aKlP1EJYXUmG8K770hxFrNID"></div>
         </div>
+        {{ form_row(form.phone) }}
         {{ form_row(form.governorate) }}
+        {{ form_row(form.birth) }}
+
         <div class="row gender">
             {{ form_row(form.gender) }}
         </div>
@@ -58,9 +55,13 @@
         </div>
     </div>
 
+    {% for message in app.session.flashBag.get('required') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
     {{ form_row(form.submit) }}
     {{ form_end(form) }}
-
 {% endblock %}
 
 {% block stylesheets %}
