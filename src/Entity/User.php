@@ -23,6 +23,12 @@ class User
 
     /**
      * @ORM\Column(type="bigint")
+     * @Assert\Regex(
+     *     pattern="/\d{8}/",
+     *     match=true,
+     *     message="A valid phone number must contain 8 digits"
+     *     )
+     * @Assert\NotBlank()
      */
     private $phone;
 
@@ -35,7 +41,7 @@ class User
      * @ORM\Column(type="string", length=20)
      * @Assert\Regex(
      *     pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/m",
-     *     match=false,
+     *     match=true,
      *     message="The password must contain 8 characters with at least: 1 uppercase character, 1 lowercase character, 1 number"
      *     )
      * @Assert\NotBlank()
