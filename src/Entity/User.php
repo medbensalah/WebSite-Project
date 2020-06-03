@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use App\Validator as UserAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
@@ -31,6 +33,12 @@ class User
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\Regex(
+     *     pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/m",
+     *     match=false,
+     *     message="The password must contain 8 characters with at least: 1 uppercase character, 1 lowercase character, 1 number"
+     *     )
+     * @Assert\NotBlank()
      */
     private $password;
 

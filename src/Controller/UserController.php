@@ -47,8 +47,10 @@ class UserController extends AbstractController
         if ($form->isSubmitted() &&
         $form->isValid() &&
         ($request->request->get('terms') == 1) &&
-        ($request->request->get('privacy') == 1) &&
-        $captcha->captchaverify($request)) {
+        ($request->request->get('privacy') == 1)
+            //&&
+//        $captcha->captchaverify($request)
+        ) {
             $newuser = $request->request->get('user');
             $check = $request->request->get('passwordCheck');
             if ($newuser['password'] != $check) {
