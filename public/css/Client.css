@@ -54,7 +54,7 @@ header .S:hover input {
 .S:hover p {
     display:none;
 }
-.loggedOut a {
+.loggedOut a, .landingButtons button {
     font-size:1.8vw;
     color:black;
     padding:5px 10px;
@@ -66,7 +66,7 @@ header .S:hover input {
     cursor: pointer;
     outline: none;
 }
-.loggedOut a:hover {
+.loggedOut a:hover, .landingButtons button:hover, #gold, #logIn{
     background-color: goldenrod;
     box-shadow: 0 8px 15px rgba(184, 134, 11, 0.5);
     color: #fff;
@@ -102,7 +102,7 @@ header .S:hover input {
 }
 .card {
     display: inline-block;
-   margin:10px 0.5%;
+    margin:10px 0.5%;
     position: relative;
 }
 .card img {
@@ -132,11 +132,24 @@ header .S:hover input {
 .card:hover .overlay {
     opacity: 1;
 }
-
-.slideButtons{
+.slideButtons, .landingButtons{
     text-align: center;
+}
+.slideButtons button{
     border: none;
     background: none;
+}
+.intro p{
+  text-align: center;
+}
+.intro {
+    margin:30px 2%;
+}
+.slider p {
+    margin:0 1%;
+}
+.landingButtons button {
+
 }
 @media only screen and (max-width: 600px){
     .card img {

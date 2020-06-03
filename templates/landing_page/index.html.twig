@@ -1,27 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div id="slider">
-
-    <div id="liste">
-        {% for categorie in categories %}
-        <a href="{{ path('categories') }}" class="card">
-            <img src="{{ asset(categorie.img) }}">
-            <div class="overlay">
-                <h2>{{ categorie.profession }}</h2>
-            </div>
-        </a>
-        {% endfor %}
+    <div class="intro">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas scelerisque nisi sed venenatis varius. Phasellus diam dolor, volutpat vel congue nec, rhoncus in arcu. Phasellus in sem sit amet tellus finibus efficitur in non ex. Phasellus a ligula vitae enim cursus varius vitae dictum purus.
+        </p>
+        <div class="landingButtons">
+            <button type="button" id="gold">
+                Je veux embaucher
+            </button>
+            <button type="button">
+                Je veux travailler
+            </button>
+        </div>
     </div>
-    <div class="slideButtons">
-        <button id="slideLeft" type="button">
-            {% include '/svg/back.svg.twig' %}
-        </button>
-        <button id="slideRight" type="button">
-            {% include '/svg/next.svg.twig' %}
-        </button>
+    <div id="slider">
+        <p>
+            Les domaines qu'on offre:
+        </p>
+        <div id="liste">
+            {% for categorie in categories %}
+            <a href="{{ path('categories') }}" class="card">
+                <img src="{{ asset(categorie.img) }}">
+                <div class="overlay">
+                    <h2>{{ categorie.profession }}</h2>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="slideButtons">
+            <button id="slideLeft" type="button">
+                {% include '/svg/back.svg.twig' %}
+            </button>
+            <button id="slideRight" type="button">
+                {% include '/svg/next.svg.twig' %}
+            </button>
+        </div>
     </div>
-</div>
 
 {% endblock %}
 

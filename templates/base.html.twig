@@ -15,21 +15,21 @@
             <div class="menu">
                 <a href="{{ path('landing_page') }}" class="item {% if current == 0 %} active {% endif %}">
                     {% include 'svg/home.svg.twig' %}
-                    <p class="title">Home</p>
+                    <p class="title">Accueil</p>
                 </a>
                 <a href="{{ path('categories') }}" class="item {% if current == 1 %} active {% endif %}">
                     {% include 'svg/interface.svg.twig' %}
-                    <p class="title">Categories</p>
+                    <p class="title">Catégories</p>
                 </a>
                 <a href="#" class="item S {% if current == 2 %} active {% endif %} ">
                     {% include 'svg/Search.svg.twig' %}
-                    <p class="title">Search</p>
+                    <p class="title">Recherche</p>
                      <input type="text" name="search">
                 </a>
             </div>
             <div class="loggedOut">
-                <a class="logIn" href="{{ path('user.form') }}">Log in</a>
-                <a class="signIn" href="#">Sign in</a>
+                <a id="logIn" href="{{ path('user.form') }}">Log in</a>
+                <a href="#">Sign in</a>
             </div>
         </header>
 
