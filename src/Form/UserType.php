@@ -24,27 +24,28 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('firstName')
+            ->add('nom')
+            ->add('prenom')
             ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add('phone', NumberType::class)
-            ->add('birth', BirthdayType::class)
-            ->add('governorate',null, [
+            ->add('motDePasse', PasswordType::class)
+            ->add('telephone', NumberType::class)
+            ->add('dateDeNaissance', BirthdayType::class)
+            ->add('gouvernorat',null, [
                 'expanded' => false ,
                 'multiple' => false,
                 'mapped' =>false
             ])
-            ->add('gender', ChoiceType::class, array(
+            ->add('sexe', ChoiceType::class, array(
                     'choices' => [
                         'male' => 'male',
-                        'female' => 'female',
+                        'femelle' => 'femelle',
                         'autre' => 'autre'
                     ],
                     'expanded' => true,
-                    'multiple' => false)
+                    'multiple' => false
+                )
             )
-            ->add('submit', SubmitType::class)
+            ->add('envoyer', SubmitType::class)
         ;
     }
 

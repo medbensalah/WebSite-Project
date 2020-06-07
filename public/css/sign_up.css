@@ -47,7 +47,7 @@ fieldset > div {
     margin-left: 30px;
 }
 
-#user_submit {
+#user_envoyer {
     font-size:1.8vw;
     color:black;
     padding:5px 10px;
@@ -59,38 +59,38 @@ fieldset > div {
     cursor: pointer;
     outline: none;
     position: relative;
-    left: 89%;
+    left: 85%;
 
 }
 
-#user_submit:hover {
+#user_envoyer:hover {
     background-color: goldenrod;
     box-shadow: 0 0 13px -1px rgba(184, 134, 11, 0.7);
     color: #fff;
 }
 
 #dataset1 {
-    background-color: rgba(230, 220, 105, 0.3);
+    background-color: #fefefe;
     margin: 20px 50px 50px 50px;
     border: rgba(184, 134, 11, 0.5) 1px solid;
-    border-radius: 30px;
-    box-shadow: 0 0 13px -1px rgba(218, 165, 32, 0.6);
+    border-radius: 15px;
+    /*box-shadow: 0 0 13px -1px rgba(218, 165, 32, 0.6);*/
     padding-top: 17px;
 }
 #dataset2 {
-    background-color: rgba(230, 220, 105, 0.3);
+    background-color: #fefefe;
     margin: 50px 50px 50px 50px;
     border: rgba(184, 134, 11, 0.5) 1px solid;
-    border-radius: 30px;
-    box-shadow: 0 0 13px -1px rgba(218, 165, 32, 0.6);
+    border-radius: 15px;
+    /*box-shadow: 0 0 13px -1px rgba(218, 165, 32, 0.6);*/
     padding-top: 17px;
 }
 #dataset3 {
-    background-color: rgba(230, 220, 105, 0.3);
+    background-color: #fefefe;
     margin: 50px 50px 50px 50px;
     border: rgba(184, 134, 11, 0.5) 1px solid;
-    border-radius: 30px;
-    box-shadow: 0 0 13px -1px rgba(218, 165, 32, 0.6);
+    border-radius: 15px;
+    /*box-shadow: 0 0 13px -1px rgba(218, 165, 32, 0.6);*/
     padding-top: 17px;
     margin-bottom: 10px !important;
 }

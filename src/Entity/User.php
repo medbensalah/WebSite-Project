@@ -30,7 +30,7 @@ class User
      *     )
      * @Assert\NotBlank()
      */
-    private $phone;
+    private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -46,27 +46,27 @@ class User
      *     )
      * @Assert\NotBlank()
      */
-    private $password;
+    private $motDePasse ;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $birth;
+    private $dateDeNaissance ;
 
     /**
      * @ORM\Column(type="string", length=6)
      */
-    private $gender;
+    private $sexe;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstName;
+    private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -76,17 +76,21 @@ class User
     /**
      * @ORM\OneToMany(targetEntity=Location::class, mappedBy="users")
      */
-    private $governorate;
+    private $gouvernorat;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $verified;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebook;
 
     public function __construct()
     {
-        $this->governorate = new ArrayCollection();
+        $this->gouvernorat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,14 +98,14 @@ class User
         return $this->id;
     }
 
-    public function getPhone(): ?string
+    public function getTelephone(): ?string
     {
-        return $this->phone;
+        return $this->telephone;
     }
 
-    public function setPhone(?string $phone): self
+    public function setTelephone(?string $telephone): self
     {
-        $this->phone = $phone;
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -118,62 +122,62 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getMotDePasse(): ?string
     {
-        return $this->password;
+        return $this->motDePasse;
     }
 
-    public function setPassword(string $password): self
+    public function setMotDePasse(string $motDePasse): self
     {
-        $this->password = $password;
+        $this->motDePasse = $motDePasse;
 
         return $this;
     }
 
-    public function getBirth(): ?\DateTimeInterface
+    public function getDateDeNaissance(): ?\DateTimeInterface
     {
-        return $this->birth;
+        return $this->dateDeNaissance;
     }
 
-    public function setBirth(\DateTimeInterface $birth): self
+    public function setDateDeNaissance(\DateTimeInterface $dateDeNaissance): self
     {
-        $this->birth = $birth;
+        $this->dateDeNaissance = $dateDeNaissance;
 
         return $this;
     }
 
-    public function getGender(): ?string
+    public function getSexe(): ?string
     {
-        return $this->gender;
+        return $this->sexe;
     }
 
-    public function setGender(string $gender): self
+    public function setSexe(string $sexe): self
     {
-        $this->gender = $gender;
+        $this->sexe = $sexe;
 
         return $this;
     }
 
-    public function getName(): ?string
+    public function getNom(): ?string
     {
-        return $this->name;
+        return $this->nom;
     }
 
-    public function setName(string $name): self
+    public function setNom(string $nom): self
     {
-        $this->name = $name;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getFirstName(): ?string
+    public function getPrenom(): ?string
     {
-        return $this->firstName;
+        return $this->prenom;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setPrenom(string $prenom): self
     {
-        $this->firstName = $firstName;
+        $this->prenom = $prenom;
 
         return $this;
     }
@@ -193,28 +197,28 @@ class User
     /**
      * @return Collection|Location[]
      */
-    public function getGovernorate(): Collection
+    public function getGouvernorat(): Collection
     {
-        return $this->governorate;
+        return $this->gouvernorat;
     }
 
-    public function addGovernorate(Location $governorate): self
+    public function addGouvernorat(Location $gouvernorat): self
     {
-        if (!$this->governorate->contains($governorate)) {
-            $this->governorate[] = $governorate;
-            $governorate->setUsers($this);
+        if (!$this->gouvernorat->contains($gouvernorat)) {
+            $this->gouvernorat[] = $gouvernorat;
+            $gouvernorat->setUsers($this);
         }
 
         return $this;
     }
 
-    public function removeGovernorate(Location $governorate): self
+    public function removeGouvernorat(Location $gouvernorat): self
     {
-        if ($this->governorate->contains($governorate)) {
-            $this->governorate->removeElement($governorate);
+        if ($this->gouvernorat->contains($gouvernorat)) {
+            $this->gouvernorat->removeElement($gouvernorat);
             // set the owning side to null (unless already changed)
-            if ($governorate->getUsers() === $this) {
-                $governorate->setUsers(null);
+            if ($gouvernorat->getUsers() === $this) {
+                $gouvernorat->setUsers(null);
             }
         }
 
@@ -229,6 +233,18 @@ class User
     public function setVerified(bool $verified): self
     {
         $this->verified = $verified;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
 
         return $this;
     }
