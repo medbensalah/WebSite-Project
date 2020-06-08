@@ -4,44 +4,78 @@
     <script src="{{ asset('node_modules/chart.js/dist/Chart.js') }}"></script>
     <canvas id="myChart"></canvas>
     <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+        chart();
+        function chart() {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const xlabel = getData();
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: xlabel,
+                    datasets: [{
+                        label: 'Users/Day',
+                        data: [12, 19, 3, 5, 2, 3],
+                        borderWidth: 1,
+                        backgroundColor: "rgba(30,158,5,1)",
                     }]
+                },
+                options: {
+                    legend: {
+                        labels: {
+                            fontColor: 'orange'
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true,
+                                fontColor: 'white',
+                                fontSize: 20
+                            },
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                fontColor: 'white',
+                                fontSize: 20
+                            }
+                        }]
+                    }
+
                 }
-            }
-        });
+            });
+        }
+
+
+        function getData() {
+            const curr = new Date;
+            const first = curr.getDate() - curr.getDay();
+            const second = curr.getDate() - curr.getDay() + 1;
+            const third = curr.getDate() - curr.getDay() + 2;
+            const fourth = curr.getDate() - curr.getDay() + 3;
+            const fifth = curr.getDate() - curr.getDay() + 4;
+            const sixth = curr.getDate() - curr.getDay() + 5;
+            const seventh = curr.getDate() - curr.getDay() + 6;
+
+            const firstDay = new Date(curr.setDate(first));
+            const secondDay = new Date(curr.setDate(second));
+            const thirdDay = new Date(curr.setDate(third));
+            const fourthDay = new Date(curr.setDate(fourth));
+            const fifthDay = new Date(curr.setDate(fifth));
+            const sixthDay = new Date(curr.setDate(sixth));
+            const seventhDay = new Date(curr.setDate(seventh));
+
+            const week = [];
+            week.push( firstDay.getFullYear() + "/" + (1+firstDay.getMonth()) + "/" + firstDay.getDate()
+            ,secondDay.getFullYear() + "/" + (1+secondDay.getMonth()) + "/" + secondDay.getDate()
+            ,thirdDay.getFullYear() + "/" + (1+thirdDay.getMonth()) + "/" + thirdDay.getDate()
+            ,fourthDay.getFullYear() + "/" + (1+fourthDay.getMonth()) + "/" + fourthDay.getDate()
+            ,fifthDay.getFullYear() + "/" + (1+fifthDay.getMonth()) + "/" + fifthDay.getDate()
+            ,sixthDay.getFullYear() + "/" + (1+sixthDay.getMonth()) + "/" + sixthDay.getDate()
+            ,seventhDay.getFullYear() + "/" + (1+seventhDay.getMonth()) + "/" + seventhDay.getDate()
+            )
+
+            return week;
+        }
     </script>
 {% endblock %}
 

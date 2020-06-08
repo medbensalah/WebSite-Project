@@ -121,11 +121,9 @@ ul li {
 
 a {
     text-decoration: none;
-    font-family: open sans, sans-serif;
 }
 
 .title, .hint {
-    font-family: open sans, sans-serif;
     display: block;
 }
 
@@ -153,7 +151,6 @@ a {
     right: 10%;
     left: 0;
     transform: translateX(360%);
-    /*line-height: 1.3;*/
 }
 .page#p1 .icon {
     transform: translateX(0) !important;
