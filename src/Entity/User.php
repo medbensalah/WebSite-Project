@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements \ArrayAccess
 {
     /**
      * @ORM\Id()
@@ -26,7 +26,7 @@ class User
      * @Assert\Regex(
      *     pattern="/\d{8}/",
      *     match=true,
-     *     message="A valid phone number must contain 8 digits"
+     *     message="Un numero de telephone valide comporte obligatoirement 8 chiffres"
      *     )
      * @Assert\NotBlank()
      */
@@ -42,7 +42,7 @@ class User
      * @Assert\Regex(
      *     pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/m",
      *     match=true,
-     *     message="The password must contain 8 characters with at least: 1 uppercase character, 1 lowercase character, 1 number"
+     *     message="Le mot de passe doit comporter au moins 8 characteres dont une lettre majuscule, une miniscule et un chiffre"
      *     )
      * @Assert\NotBlank()
      */
@@ -247,5 +247,25 @@ class User
         $this->facebook = $facebook;
 
         return $this;
+    }
+
+    public function offsetExists($offset)
+    {
+        return property_exists($this, $offset);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->$offset;
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->$offset = $value;
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->$offset);
     }
 }

@@ -2,8 +2,7 @@
 {% block title %}Sign Up!{% endblock %}
 
 {% block body %}
-    <h3>Fill this form to create an account!</h3>
-
+    <h1>Veuillez remplir ce formulaire pour créer un compte</h1>
     {{ form_start(form)}}
     <div class="row" id="dataset1">
         <div class="col-4">
@@ -26,7 +25,7 @@
                 <input type="password" id="user_password" name="passwordCheck" required="required" class="form-control"></div>
         </div>
         {% for message in app.session.flashBag.get('alert') %}
-            <div class="alert alert-danger">
+            <div class="alert alert-danger carved">
                 {{ message }}
             </div>
         {% endfor %}
@@ -44,12 +43,12 @@
             {{ form_row(form.sexe) }}
         </div>
     </div>
-    <div class="container">
-        <div class="row">
+    <div class="container carved">
+        <div class="check">
             <input type="checkbox" name="terms" id="check1" value="1">
             <label for="check1">I agree to the <a href="">Terms of use</a> </label>
         </div>
-        <div class="row">
+        <div class="check">
             <input type="checkbox" name="privacy" id="check2" value="1">
             <label for="check2">I've read and I agree to the <a href="">privacy policy</a> </label>
         </div>
@@ -60,12 +59,12 @@
             {{ message }}
         </div>
     {% endfor %}
-    {{ form_row(form.envoyer) }}
+    {{ form_row(form.confirmer) }}
     {{ form_end(form) }}
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-form/bootstrap.css') }}">
     {{ parent() }}
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <link rel="stylesheet" href="{{ asset('css/sign_up.css') }}">

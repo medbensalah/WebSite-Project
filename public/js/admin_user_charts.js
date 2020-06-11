@@ -1,5 +1,7 @@
-const current = document.getElementById('current');
+var current = document.getElementById('current');
 current.classList.add("week");
+
+
 
 chart(7);
 charts(30);
@@ -35,7 +37,6 @@ function charts(x) {
             legend: {
                 labels: {
                     fontColor: 'black',
-                    // fontSize: 28
                 }
             },
             scales: {
@@ -43,13 +44,17 @@ function charts(x) {
                     ticks: {
                         beginAtZero:true,
                         fontColor: 'black',
-                        // fontSize: 20
                     },
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
                 }],
                 xAxes: [{
                     ticks: {
                         fontColor: 'black',
-                        // fontSize: 20
+                    },
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
                     }
                 }]
             }
@@ -108,20 +113,28 @@ function getData(x) {
     switch (x) {
         case 7:
             for (let i = 0; i < x; i++) {
-                date = new Date(curr.getFullYear(), curr.getMonth(), i + curr.getDate() - curr.getDay());
+                date = new Date(
+                    curr.getFullYear(),
+                    curr.getMonth(),
+                    i + curr.getDate() - curr.getDay()
+                )
                 days.push(
                     date.getFullYear() + "/" +
-                    date.getMonth() + "/" +
+                    (1+date.getMonth()) + "/" +
                     date.getDate()
                 );
             }
             break;
         case 30:
             for (let i = 0; i < x; i++) {
-                date = new Date(curr.getFullYear(), curr.getMonth(), i + 1);
+                date = new Date(
+                    curr.getFullYear(),
+                    curr.getMonth(),
+                    i + 1
+                );
                 days.push(
                     date.getFullYear() + "/" +
-                    date.getMonth() + "/" +
+                    (1+date.getMonth()) + "/" +
                     date.getDate()
                 );
             }
@@ -131,7 +144,7 @@ function getData(x) {
                 date = new Date(curr.getFullYear(), 0, i + 1);
                 days.push(
                     date.getFullYear() + "/" +
-                    date.getMonth() + "/" +
+                    (1+date.getMonth()) + "/" +
                     date.getDate()
                 );
             }

@@ -41,8 +41,8 @@ class MailController extends AbstractController
             ->setBody(
                 $this->renderView(
                     'emails/registration.html.twig', [
-                        'name' => $user->getName(),
-                        'firstName' => $user->getFirstName(),
+                        'name' => $user->getNom(),
+                        'firstName' => $user->getPrenom(),
                         'id' => $user->getID()
                     ]
                 ),

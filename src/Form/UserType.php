@@ -39,13 +39,13 @@ class UserType extends AbstractType
                     'choices' => [
                         'male' => 'male',
                         'femelle' => 'femelle',
-                        'autre' => 'autre'
+                        'entreprise' => 'entreprise'
                     ],
                     'expanded' => true,
                     'multiple' => false
                 )
             )
-            ->add('envoyer', SubmitType::class)
+            ->add('confirmer', SubmitType::class)
         ;
     }
 

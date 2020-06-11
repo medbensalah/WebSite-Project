@@ -8,6 +8,7 @@ use App\Service\ReCaptchaValidator;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -37,8 +38,14 @@ class UserController extends AbstractController
      */
     public function addUser(EntityManagerInterface $manager, Request $request, Session $session, ReCaptchaValidator $captcha)
     {
+
+        $myCookie = $request->cookies->get('mail');
+//        if ()
+
+
         $user = new User();
         $user->setVerified(false);
+        $user->setPhoto('/img/Profile/unknown.png');
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -53,7 +60,7 @@ class UserController extends AbstractController
         ) {
             $newuser = $request->request->get('user');
             $check = $request->request->get('passwordCheck');
-            if ($newuser['password'] != $check) {
+            if ($newuser['motDePasse'] != $check) {
                 $this->addFlash('alert', 'Password does not match');
                 return $this->redirectToRoute('user.form');
             }
@@ -113,6 +120,57 @@ class UserController extends AbstractController
         $manager->remove($user);
         $manager->flush();
         return $this->redirectToRoute('landing_page');
+    }
+
+    /**
+     * @Route("/log_in", name="log_in")
+     * @return Response
+     */
+    public function login()
+    {
+        return $this->render('user/login.html.twig', [
+            'current' => -1
+        ]);
+    }
+
+    /**
+     * @Route("/check/log_in", name="user.log_in")
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param Session $session
+     * @return Response
+     */
+    public function checkLogin(Request $request, EntityManagerInterface $manager, Session $session)
+    {
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->findOneBy([
+            'email' => $request->request->get('email'),
+            'motDePasse' => $request->request->get('password')
+        ]);
+        if(!$user) {
+            $this->addFlash('login_error', 'Veuillez verifier vos credentials.');
+
+            return $this->render('user/login.html.twig', [
+                'current' => -1
+            ]);
+        }
+        else {
+            $request->cookies->set('email', $user->getEmail());
+
+            $cookie = new Cookie(
+                'mail', $user->getEmail() ,
+                time() + ( 2 * 365 * 24 * 60 * 60) ,
+                '/'
+            );
+            $res = new Response();
+            $res->headers->setCookie( $cookie );
+            $res->send();
+//            dd($myCookie = $request->cookies->get('mail'));
+            $session->set('user', $user);
+
+            return $this->redirectToRoute('landing_page');
+        }
+
     }
 
 }
