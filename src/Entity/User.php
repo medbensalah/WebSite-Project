@@ -83,10 +83,6 @@ class User implements \ArrayAccess
      */
     private $verified;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $facebook;
 
     public function __construct()
     {
@@ -237,17 +233,6 @@ class User implements \ArrayAccess
         return $this;
     }
 
-    public function getFacebook(): ?string
-    {
-        return $this->facebook;
-    }
-
-    public function setFacebook(?string $facebook): self
-    {
-        $this->facebook = $facebook;
-
-        return $this;
-    }
 
     public function offsetExists($offset)
     {

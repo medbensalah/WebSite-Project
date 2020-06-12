@@ -25,6 +25,9 @@ class LandingPageController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
             'email' => $myCookie
         ]);
+        if($user){
+            $session->set('user', $user);
+        }
         $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
         return $this->render('landing_page/index.html.twig', [
             'controller_name' => 'LandingPageController',

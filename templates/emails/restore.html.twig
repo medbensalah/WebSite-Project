@@ -1,0 +1,7 @@
+<h1>Bonjour {{ name }} {{ firstName }}</h1>
+<h3>Cet email est généré suite à une demande de changement de mot de passe</h3>
+    <a href="{{ url('user.change.password', {'id': id}) }}">
+        click this link to change your password
+    </a>
+
+<h3>Si vous n'avez pas demander la récupération ignorer cet email</h3>

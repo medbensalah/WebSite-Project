@@ -283,10 +283,9 @@ footer img {
     text-decoration: none;
     display: block;
 }
-.dropdown-content>a {
+.dropdown-content a {
 
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin: 3px 3px 3px 3px;
 }
 
 /* Change color of dropdown links on hover */
@@ -295,7 +294,12 @@ footer img {
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
-.dropdown:hover{
+.menu .dropdown:hover .dropdown-content {display: block;}
+.menu .dropdown:hover{
     background-color: rgba(146, 70, 0, 0.35);
+}
+
+.show {
+    display:block;
+    margin-left: 20px !important;
 }

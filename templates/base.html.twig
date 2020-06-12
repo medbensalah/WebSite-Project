@@ -9,6 +9,9 @@
     {% endblock %}
 </head>
 <body>
+{% if current is not defined %}
+    {% set current = -1 %}
+{% endif %}
 <div class="page_container">
     <header>
         <div class="logo">
@@ -31,7 +34,6 @@
                     {% endfor %}
                 </div>
             </div>
-            </a>
             <a href="#" class="item S {% if current == 2 %} active {% endif %} ">
                 <i class="fa fa-search fa-2x carved" aria-hidden="true"></i>
 
@@ -44,11 +46,27 @@
             {% if app.session.has('user')%}
                 {% set user = app.session.get('user')%}
                 {% if user is not null %}
-                    <div class="menu connected">
-                        <a href="#" >
-                            <p class="title">{{ user.Prenom }} {{ user.nom }}</p>
-                            <img height="35px" width="35px" src="{{ user.photo }}">
-                        </a>
+
+                    <div class="badge dropdown">
+                        <div class="menu connected" onclick="myFunction()">
+                            <a href="#" >
+                                <p class="title">{{ user.Prenom }} {{ user.nom }}</p>
+                                <img height="35px" width="35px" src="{{ user.photo }}">
+                            </a>
+                            <i style="
+                            margin-left: 3px;
+                            margin-right: 5px;
+                            margin-top: 7px;
+                            color: #ffe8a1;"
+                               class="fa fa-caret-down fa-2x badge"
+                               aria-hidden="true"></i>
+                        </div>
+                        <div class="dropdown-content" id="user-menu">
+                            <a href="">Modifier mon compte</a>
+                            <a href="">Voir mes offres</a>
+                            <a href="">Support</a>
+                            <a href="{{ path('user.log_out') }}">Déconnexion</a>
+                        </div>
                     </div>
                 {% endif %}
             {% else %}
@@ -57,9 +75,6 @@
                         <a id="SignUp" href="{{ path('user.form') }}">s'inscrire</a>
                     </div>
             {% endif %}
-{#        {% else  %}#}
-{#            <h1> cookie {{ userFromCookie['email'] }}</h1>#}
-{#        {% endif %}#}
     </header>
 
     {% block body %}{% endblock %}
@@ -97,6 +112,7 @@
         </div>
     </footer>
 </div>
+<script src="{{ asset('js/landingPage.js') }}"></script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

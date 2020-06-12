@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categories;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\ReCaptchaValidator;
@@ -9,23 +10,36 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use function Composer\Autoload\includeFile;
-use function Symfony\Component\String\u;
 
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/sign_up", name="sign_up")
+     * @param Request $request
+     * @param Session $session
+     * @return RedirectResponse|Response
      */
-    public function index()
+    public function index(Request $request, Session $session)
     {
+        $myCookie = $request->cookies->get('mail');
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+            'email' => $myCookie
+        ]);
+        if($user){
+            $session->set('user', $user);
+            return $this->redirectToRoute('landing_page');
+        }
         return $this->render('user/sign_up.html.twig', [
             'controller_name' => 'UserController',
+            'current' => -1,
+            'categories' => $categories
         ]);
     }
 
@@ -35,14 +49,18 @@ class UserController extends AbstractController
      * @param Request $request
      * @param Session $session
      * @param ReCaptchaValidator $captcha
+     * @return RedirectResponse|Response
      */
     public function addUser(EntityManagerInterface $manager, Request $request, Session $session, ReCaptchaValidator $captcha)
     {
-
         $myCookie = $request->cookies->get('mail');
-//        if ()
-
-
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+            'email' => $myCookie
+        ]);
+        if($user){
+            $session->set('user', $user);
+            return $this->redirectToRoute('landing_page');
+        }
         $user = new User();
         $user->setVerified(false);
         $user->setPhoto('/img/Profile/unknown.png');
@@ -51,7 +69,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
 
-        $session->set('user', $user);
         if ($form->isSubmitted() &&
         $form->isValid() &&
         ($request->request->get('terms') == 1) &&
@@ -65,6 +82,7 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('user.form');
             }
             try {
+                $session->set('user', $user);
                 $manager->persist($user);
                 $manager->flush();
                 return $this->redirectToRoute('email');
@@ -84,17 +102,21 @@ class UserController extends AbstractController
                 !$captcha->captchaverify($request)) {
                 $this->addFlash('required', "In order to proceed with the sign up you need to confirm the reCAPTCHA");
             }
+            $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+
             return $this->render('user/sign_up.html.twig', [
                 'form' => $form->createView(),
-                'current' => -1
+                'current' => -1,
+                'categories' => $categories
             ]);
         }
     }
 
     /**
      * @param $id
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
      * @Route("/activate/{id}", name="user.activate")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 
     public function activate($id, EntityManagerInterface $manager)
@@ -108,40 +130,63 @@ class UserController extends AbstractController
 
     /**
      * @param $id
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
      * @Route("/delete/{id}", name="user.delete")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 
     public function delete($id, EntityManagerInterface $manager)
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->find($id);
-        $user->setVerified(true);
-        $manager->remove($user);
-        $manager->flush();
+        if ($user) {
+            $user->setVerified(true);
+            $manager->remove($user);
+            $manager->flush();
+        }
         return $this->redirectToRoute('landing_page');
     }
 
     /**
      * @Route("/log_in", name="log_in")
+     * @param Request $request
+     * @param Session $session
      * @return Response
      */
-    public function login()
+    public function login(Request $request, Session $session)
     {
+        $myCookie = $request->cookies->get('mail');
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+            'email' => $myCookie
+        ]);
+        if($user){
+            $session->set('user', $user);
+            return $this->redirectToRoute('landing_page');
+        }
         return $this->render('user/login.html.twig', [
-            'current' => -1
+            'current' => -1,
+            'categories' => $categories
         ]);
     }
 
     /**
      * @Route("/check/log_in", name="user.log_in")
      * @param Request $request
-     * @param EntityManagerInterface $manager
      * @param Session $session
      * @return Response
      */
-    public function checkLogin(Request $request, EntityManagerInterface $manager, Session $session)
+    public function checkLogin(Request $request, Session $session)
     {
+        $myCookie = $request->cookies->get('mail');
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+            'email' => $myCookie
+        ]);
+        if($user){
+            $session->set('user', $user);
+            return $this->redirectToRoute('landing_page');
+        }
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findOneBy([
             'email' => $request->request->get('email'),
@@ -151,7 +196,8 @@ class UserController extends AbstractController
             $this->addFlash('login_error', 'Veuillez verifier vos credentials.');
 
             return $this->render('user/login.html.twig', [
-                'current' => -1
+                'current' => -1,
+                'categories' => $categories
             ]);
         }
         else {
@@ -165,13 +211,123 @@ class UserController extends AbstractController
             $res = new Response();
             $res->headers->setCookie( $cookie );
             $res->send();
-//            dd($myCookie = $request->cookies->get('mail'));
             $session->set('user', $user);
 
             return $this->redirectToRoute('landing_page');
         }
-
     }
 
+    /**
+     * @Route("/disconnect", name="user.log_out")
+     * @param Request $request
+     * @param Session $session
+     * @return RedirectResponse
+     */
+    public function disconnect(Request $request, Session $session) {
+        $response = new Response();
+        $response->headers->clearCookie('mail');
+        $response->send();
+        $session->remove('user');
+        return $this->redirectToRoute('landing_page');
+    }
+
+    /**
+     * @Route("/restore", name="user.restore")
+     * @param Request $request
+     * @param Session $session
+     * @return RedirectResponse|Response
+     */
+    public function restore(Request $request, Session $session){
+        $myCookie = $request->cookies->get('mail');
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+            'email' => $myCookie
+        ]);
+        if($user){
+            $session->set('user', $user);
+            return $this->redirectToRoute('landing_page');
+        }
+        return $this->render('user/restore.html.twig', [
+            'current' => -1,
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * @Route("/check/restore", name="user.check.restore")
+     * @param Request $request
+     * @param Session $session
+     * @return RedirectResponse|Response
+     */
+    public function checkRestore(Request $request, Session $session) {
+        $myCookie = $request->cookies->get('mail');
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+            'email' => $myCookie
+        ]);
+        if($user){
+            $session->set('user', $user);
+            return $this->redirectToRoute('landing_page');
+        }
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->findOneBy([
+            'email' => $request->request->get('email')
+        ]);
+        if(!$user) {
+            $this->addFlash('restore_error', 'Aucun compte correspondant');
+
+            return $this->render('user/restore.html.twig', [
+                'current' => -1,
+                'categories' => $categories
+            ]);
+        }
+        else {
+            $session->set('email',$user->getEmail());
+            return $this->redirectToRoute('email.restore');
+        }
+    }
+
+    /**
+     * @Route("/restore/{id}", name="user.change.password")
+     * @param $id
+     * @return Response
+     */
+    public function changePassword($id){
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+
+        return $this->render('user/changePassword.html.twig', [
+            'current' => -1,
+            'categories' => $categories,
+            'id' => $id
+        ]);
+    }
+
+    /**
+     * @Route("/restore/password/check/{id}", name="user.change.password.check")
+     * @param $id
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function changePasswordCheck($id, Request $request, EntityManagerInterface $manager) {
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+
+        if ($request->request->get('password')==$request->request->get('password_check')) {
+            $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+            $user->setMotDePasse($request->request->get('password'));
+            $manager->flush();
+
+            return $this->render('user/login.html.twig', [
+                'current' => -1,
+                'categories' => $categories
+            ]);
+        }
+        $this->addFlash('restore_error','Mot de passe non valide');
+        return $this->render('user/changePassword.html.twig', [
+            'current' => -1,
+            'categories' => $categories,
+            'id' => $id
+        ]);
+    }
 }
 

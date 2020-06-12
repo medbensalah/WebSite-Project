@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+    </style>
+    {% for message in app.session.flashBag.get('restore_error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <form action="{{ path('user.check.restore') }}" method="post">
+        <div class="form-group">
+            <label for="user_email">Email</label>
+            <input type="text" id="user_email" name="email" required="required" class="form-control">
+        </div>
+        <input type="submit" class="submit" value="Confirmer">
+    </form>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-form/bootstrap.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/restore_form.css') }}">
+{% endblock %}
