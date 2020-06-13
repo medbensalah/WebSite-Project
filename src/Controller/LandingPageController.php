@@ -28,6 +28,7 @@ class LandingPageController extends AbstractController
         if($user){
             $session->set('user', $user);
         }
+//        dd($user);
         $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
         return $this->render('landing_page/index.html.twig', [
             'controller_name' => 'LandingPageController',

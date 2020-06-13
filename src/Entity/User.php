@@ -3,16 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-use App\Validator as UserAssert;
-use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements \ArrayAccess
+class User
 {
     /**
      * @ORM\Id()
@@ -22,86 +18,81 @@ class User implements \ArrayAccess
     private $id;
 
     /**
-     * @ORM\Column(type="bigint")
-     * @Assert\Regex(
-     *     pattern="/\d{8}/",
-     *     match=true,
-     *     message="Un numero de telephone valide comporte obligatoirement 8 chiffres"
-     *     )
-     * @Assert\NotBlank()
-     */
-    private $telephone;
-
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=20)
-     * @Assert\Regex(
-     *     pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/m",
-     *     match=true,
-     *     message="Le mot de passe doit comporter au moins 8 characteres dont une lettre majuscule, une miniscule et un chiffre"
-     *     )
-     * @Assert\NotBlank()
-     */
-    private $motDePasse ;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateDeNaissance ;
-
-    /**
-     * @ORM\Column(type="string", length=6)
-     */
-    private $sexe;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=40)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=40)
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $photo;
+    private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="users")
+     * @ORM\Column(type="string", length=255)
      */
-    private $gouvernorat;
+    private $motDePasse;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateDeNaissance;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $sexe;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $verified;
 
-
-    public function __construct()
-    {
-        $this->gouvernorat = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Gouvernorat::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gouvernorat;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTelephone(): ?string
+    public function getNom(): ?string
     {
-        return $this->telephone;
+        return $this->nom;
     }
 
-    public function setTelephone(?string $telephone): self
+    public function setNom(string $nom): self
     {
-        $this->telephone = $telephone;
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
@@ -154,26 +145,14 @@ class User implements \ArrayAccess
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getTelephone(): ?string
     {
-        return $this->nom;
+        return $this->telephone;
     }
 
-    public function setNom(string $nom): self
+    public function setTelephone(string $telephone): self
     {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -183,40 +162,9 @@ class User implements \ArrayAccess
         return $this->photo;
     }
 
-    public function setPhoto(?string $photo): self
+    public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Location[]
-     */
-    public function getGouvernorat(): Collection
-    {
-        return $this->gouvernorat;
-    }
-
-    public function addGouvernorat(Location $gouvernorat): self
-    {
-        if (!$this->gouvernorat->contains($gouvernorat)) {
-            $this->gouvernorat[] = $gouvernorat;
-            $gouvernorat->setUsers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGouvernorat(Location $gouvernorat): self
-    {
-        if ($this->gouvernorat->contains($gouvernorat)) {
-            $this->gouvernorat->removeElement($gouvernorat);
-            // set the owning side to null (unless already changed)
-            if ($gouvernorat->getUsers() === $this) {
-                $gouvernorat->setUsers(null);
-            }
-        }
 
         return $this;
     }
@@ -233,24 +181,15 @@ class User implements \ArrayAccess
         return $this;
     }
 
-
-    public function offsetExists($offset)
+    public function getGouvernorat(): ?Gouvernorat
     {
-        return property_exists($this, $offset);
+        return $this->gouvernorat;
     }
 
-    public function offsetGet($offset)
+    public function setGouvernorat(?Gouvernorat $gouvernorat): self
     {
-        return $this->$offset;
-    }
+        $this->gouvernorat = $gouvernorat;
 
-    public function offsetSet($offset, $value)
-    {
-        $this->$offset = $value;
-    }
-
-    public function offsetUnset($offset)
-    {
-        unset($this->$offset);
+        return $this;
     }
 }

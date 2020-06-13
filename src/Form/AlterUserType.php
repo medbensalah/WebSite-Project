@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,6 +15,13 @@ class AlterUserType extends AbstractType
         $builder
             ->add('telephone')
             ->add('photo')
+            ->add('gouvernorat',null, [
+                'expanded' => false ,
+                'multiple' => false,
+                'mapped' =>false
+            ])
+            ->add('confirmer', SubmitType::class)
+
         ;
     }
 

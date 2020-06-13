@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Categories;
+use App\Entity\Gouvernorat;
 use App\Entity\User;
+use App\Form\AlterUserType;
 use App\Form\UserType;
 use App\Service\ReCaptchaValidator;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -25,24 +27,6 @@ class UserController extends AbstractController
      * @param Session $session
      * @return RedirectResponse|Response
      */
-    public function index(Request $request, Session $session)
-    {
-        $myCookie = $request->cookies->get('mail');
-        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
-            'email' => $myCookie
-        ]);
-        if($user){
-            $session->set('user', $user);
-            return $this->redirectToRoute('landing_page');
-        }
-        return $this->render('user/sign_up.html.twig', [
-            'controller_name' => 'UserController',
-            'current' => -1,
-            'categories' => $categories
-        ]);
-    }
-
     /**
      * @Route("/addUserForm", name="user.form")
      * @param EntityManagerInterface $manager
@@ -67,13 +51,12 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
-
-
         if ($form->isSubmitted() &&
         $form->isValid() &&
         ($request->request->get('terms') == 1) &&
-        ($request->request->get('privacy') == 1) &&
-        $captcha->captchaverify($request)
+        ($request->request->get('privacy') == 1)
+            //&&
+     //   $captcha->captchaverify($request)
         ) {
             $newuser = $request->request->get('user');
             $check = $request->request->get('passwordCheck');
@@ -82,7 +65,10 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('user.form');
             }
             try {
-                $session->set('user', $user);
+                $gov = new Gouvernorat();
+                $gov = $newuser['gouvernorat'];
+                $user->setGouvernorat($this->getDoctrine()->getRepository(Gouvernorat::class)->find($gov));
+                $session->set('signUser', $user);
                 $manager->persist($user);
                 $manager->flush();
                 return $this->redirectToRoute('email');
@@ -328,6 +314,41 @@ class UserController extends AbstractController
             'categories' => $categories,
             'id' => $id
         ]);
+    }
+
+    /**
+     * @Route("/alterUserForm", name="user.alter")
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @param Session $session
+     * @param ReCaptchaValidator $captcha
+     * @return RedirectResponse|Response
+     */
+    public function alterUser(EntityManagerInterface $manager, Request $request, Session $session)
+    {
+        $myCookie = $request->cookies->get('mail');
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+            'email' => $myCookie
+        ]);
+
+        $form = $this->createForm(AlterUserType::class, $user);
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() &&
+            $form->isValid()) {
+            $session->set('user', $user);
+            $manager->flush();
+            return $this->redirectToRoute('landing_page');
+        }
+        else {
+            return $this->render('user/alter_user.html.twig', [
+                'form' => $form->createView(),
+                'current' => -1,
+                'categories' => $categories
+            ]);
+        }
     }
 }
 

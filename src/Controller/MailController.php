@@ -20,7 +20,7 @@ class MailController extends AbstractController
      * @return RedirectResponse
      */
     public function sendVerificationEmail(Session $session) {
-        $user = $session->get('user');
+        $user = $session->get('signUser');
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
             ->setUsername('taarafchi.no.reply@gmail.com')
             ->setPassword('taarafchi123');

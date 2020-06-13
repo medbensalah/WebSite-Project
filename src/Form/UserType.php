@@ -31,7 +31,7 @@ class UserType extends AbstractType
             ->add('telephone', NumberType::class)
             ->add('dateDeNaissance', BirthdayType::class)
             ->add('gouvernorat',null, [
-                'expanded' => false ,
+//                'expanded' => false ,
                 'multiple' => false,
                 'mapped' =>false
             ])

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Sign Up!{% endblock %}
+
+{% block body %}
+    <h1>Modifier vos données personnelles</h1>
+    {{ form_start(form)}}
+
+    <div id="dataset3">
+        {{ form_row(form.photo) }}
+        {{ form_row(form.telephone) }}
+        {{ form_row(form.gouvernorat) }}
+    </div>
+
+    {{ form_row(form.confirmer) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-form/bootstrap.css') }}">
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/sign_up.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
