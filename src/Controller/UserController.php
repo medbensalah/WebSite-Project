@@ -12,12 +12,13 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Twig\Extra\String\StringExtension;
 
 class UserController extends AbstractController
 {
@@ -55,8 +56,8 @@ class UserController extends AbstractController
         $form->isValid() &&
         ($request->request->get('terms') == 1) &&
         ($request->request->get('privacy') == 1)
-            //&&
-     //   $captcha->captchaverify($request)
+//            &&
+//        $captcha->captchaverify($request)
         ) {
             $newuser = $request->request->get('user');
             $check = $request->request->get('passwordCheck');
@@ -65,9 +66,7 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('user.form');
             }
             try {
-                $gov = new Gouvernorat();
-                $gov = $newuser['gouvernorat'];
-                $user->setGouvernorat($this->getDoctrine()->getRepository(Gouvernorat::class)->find($gov));
+                $user->setId();
                 $session->set('signUser', $user);
                 $manager->persist($user);
                 $manager->flush();
@@ -162,7 +161,7 @@ class UserController extends AbstractController
      * @param Session $session
      * @return Response
      */
-    public function checkLogin(Request $request, Session $session)
+    public function checkLogin(Request $request, Session $session, EntityManagerInterface $manager)
     {
         $myCookie = $request->cookies->get('mail');
         $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
@@ -178,6 +177,7 @@ class UserController extends AbstractController
             'email' => $request->request->get('email'),
             'motDePasse' => $request->request->get('password')
         ]);
+//        dd($user);
         if(!$user) {
             $this->addFlash('login_error', 'Veuillez verifier vos credentials.');
 
@@ -187,16 +187,23 @@ class UserController extends AbstractController
             ]);
         }
         else {
+            if($user->getVerified()==0){
+                return $this->redirectToRoute('user.confirm');
+            }
+
             $request->cookies->set('email', $user->getEmail());
 
             $cookie = new Cookie(
                 'mail', $user->getEmail() ,
-                time() + ( 2 * 365 * 24 * 60 * 60) ,
+                time() + (365 * 24 * 60 * 60) ,
                 '/'
             );
             $res = new Response();
             $res->headers->setCookie( $cookie );
             $res->send();
+            $user->setActive(new \DateTime("now"));
+            $manager->persist($user);
+            $manager->flush();
             $session->set('user', $user);
 
             return $this->redirectToRoute('landing_page');
@@ -335,10 +342,21 @@ class UserController extends AbstractController
         $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
 
         $form->handleRequest($request);
-
         if ($form->isSubmitted() &&
             $form->isValid()) {
+            if($form['image']->getData()) {
+                $image = $form['image']->getData();
+                $path = md5(uniqid()).$image->getClientOriginalName();
+                $destination = __DIR__.'/../../public/img/Profile/userProfileImages';
+                try{
+                    $image->move($destination, $path);
+                    $user->setPhoto('../img/Profile/userProfileImages/'.$path);
+                } catch(FileException $fe) {
+                    echo $fe;
+                }
+            }
             $session->set('user', $user);
+            $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('landing_page');
         }
@@ -349,6 +367,21 @@ class UserController extends AbstractController
                 'categories' => $categories
             ]);
         }
+    }
+
+    /**
+     * @Route("/profile/{id}", name="user.profile")
+     * @param User $user
+     * @return Response
+     */
+
+    public function profile(User $user) {
+        $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
+        return $this->render('user/profile.html.twig', [
+            'current' => -1,
+            'profile' => $user,
+            'categories' => $categories
+        ]);
     }
 }
 

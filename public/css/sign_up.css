@@ -83,6 +83,24 @@ fieldset > div {
     color:#ffffff;
 }
 
+#alter_user_confirmer {
+    font-size:1.8vw;
+    padding:5px 10px;
+    margin:0 5px;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    left: 85%;
+    color: #000000;
+    background-color: transparent;
+    border: black 1px solid;
+}
+
+#alter_user_confirmer:hover {
+    background-color: #000000;
+    color:#ffffff;
+}
+
 #dataset1 {
     display: flex;
     border: 1px black solid;
@@ -160,3 +178,8 @@ legend {
 a {
     text-decoration: none !important;
 }
+
+/*.gender + .form-group>label {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/

@@ -34,7 +34,8 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "5.0.*",
         "symfony/web-link": "5.0.*",
-        "symfony/yaml": "5.0.*"
+        "symfony/yaml": "5.0.*",
+        "twig/string-extra": "^3.0"
     },
     "require-dev": {
         "symfony/debug-pack": "*",

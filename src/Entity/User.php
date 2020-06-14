@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
+use App\Repository\GouvernoratRepository;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Repository\RepositoryFactory;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -12,10 +16,15 @@ class User
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\Column(type="string", length=255 )
      */
     private $id;
+
+    public function setId(): void
+    {
+        $this->id = $this->md5_hex_to_dec(md5(uniqid()));
+    }
 
     /**
      * @ORM\Column(type="string", length=40)
@@ -58,19 +67,44 @@ class User
     private $photo;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $verified;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Gouvernorat::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Gouvernorat::class, inversedBy="users", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="gouvernorat_id", referencedColumnName="id", nullable=false)
      */
     private $gouvernorat;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $active;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $job;
+
+    public function __construct()
+    {
+        $this->job = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
     }
 
     public function getNom(): ?string
@@ -105,6 +139,13 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -189,6 +230,58 @@ class User
     public function setGouvernorat(?Gouvernorat $gouvernorat): self
     {
         $this->gouvernorat = $gouvernorat;
+
+        return $this;
+    }
+
+    function md5_hex_to_dec($hex_str) :?int
+    {
+        $arr = str_split($hex_str, 4);
+        foreach ($arr as $grp) {
+            $dec[] = str_pad(hexdec($grp), 5, '0', STR_PAD_LEFT);
+        }
+        return (int) implode('', $dec);
+    }
+
+    public function getActive(): ?\DateTimeInterface
+    {
+        return $this->active;
+    }
+
+    public function setActive(?\DateTimeInterface $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Job[]
+     */
+    public function getJob(): Collection
+    {
+        return $this->job;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->job->contains($job)) {
+            $this->job[] = $job;
+            $job->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->job->contains($job)) {
+            $this->job->removeElement($job);
+            // set the owning side to null (unless already changed)
+            if ($job->getUser() === $this) {
+                $job->setUser(null);
+            }
+        }
 
         return $this;
     }

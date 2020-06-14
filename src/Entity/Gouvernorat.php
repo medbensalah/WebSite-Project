@@ -6,6 +6,7 @@ use App\Repository\GouvernoratRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * @ORM\Entity(repositoryClass=GouvernoratRepository::class)
@@ -75,7 +76,7 @@ class Gouvernorat
             $this->users->removeElement($user);
             // set the owning side to null (unless already changed)
             if ($user->getGouvernorat() === $this) {
-                $user->setGouvernorat($this);
+                $user->setGouvernorat(null);
             }
         }
 
@@ -83,7 +84,6 @@ class Gouvernorat
     }
     public function __toString()
     {
-        // TODO: Implement __toString() method.
-        return $this->getGov();
+        return $this->gov;
     }
 }

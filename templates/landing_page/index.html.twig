@@ -6,7 +6,9 @@
         {% for categorie in categories %}
             <div class="mySlides fade">
                 <div class="numbertext">{{ loop.index }} / {{ loop.length }}</div>
+                <a href="#">
                     <img src="{{ asset(categorie.img) }}" style="width: 100%; height: 500px">
+                </a>
                 <h1 class="text">{{ categorie.profession }}</h1>
             </div>
         {% endfor %}

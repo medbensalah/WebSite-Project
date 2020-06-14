@@ -1,0 +1,25 @@
+footer {
+    position: absolute;
+}
+
+.image {
+    float: left;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin: 10px;
+}
+
+.name {
+    margin-top: 67px ;
+    margin-left: 5px;
+}
+
+.user_contact {
+    margin-top: 90px;
+    margin-left: 50px;
+}
+
+.desc {
+    margin-right: 20px;
+    margin-left: 20px;
+}

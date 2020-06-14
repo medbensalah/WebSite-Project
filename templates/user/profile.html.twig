@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <img class="image" height="150px" width="150px" src="{{ profile.photo }}">
+    <div class="name">
+        <h1>{{ profile.prenom }} {{ profile.nom }}</h1>
+    </div>
+    <div class="user_contact" style="display: flex; justify-content: space-between">
+        <div>
+            <h2>Contact</h2>
+            <div class="contact" style="margin-left: 30px">
+                <div style="display:flex; flex-direction: row">
+                    <i class="fa fa-map-marker fa-1x" aria-hidden="true"></i>
+                    <div>
+                        <h4 style="margin: 0; margin-left: 20px">{{ profile.gouvernorat }}</h4>
+                    </div>
+                </div>
+                <div style="display:flex; flex-direction: row">
+                    <i style="padding-right: 20px; padding-top: 20px" class="fa fa-phone fa-1x" aria-hidden="true"></i>
+                    <div>
+                        <h4 style="margin: 20px 0 0 0 ">{{ profile.telephone }}</h4>
+                    </div>
+                </div>
+                <div style="display:flex; flex-direction: row">
+                    <i style="padding-right: 20px; padding-top: 20px" class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+                    <div>
+                        <h4>{{ profile.email }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info">
+            <h2>Description</h2>
+            <div class="desc">
+                {% if profile.description != "" %}
+                    {{ profile.description|u.wordwrap(50)|nl2br }}
+                {% else %}
+                    Aucune description
+                {% endif %}
+            </div>
+        </div>
+{#        TODO#}
+{#        <div class="rate">#}
+{#            <h2>Note</h2>#}
+{#            <div class="note">#}
+{#                {% if exist is defined %}#}
+{#                #}
+{#                {% endif %}#}
+{#            </div>#}
+{#        </div>#}
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
+{% endblock %}
