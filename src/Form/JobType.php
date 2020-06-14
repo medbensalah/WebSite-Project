@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Gouvernorat;
 use App\Entity\Job;
 use Proxies\__CG__\App\Entity\Categories;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,12 +18,14 @@ class JobType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('category', EntityType::class,[
-                'class' => Categories::class
+            ->add('categorie', EntityType::class,[
+                'class' => Categories::class,
+                'choice_value' => 'profession',
+                'choice_label' => 'profession'
             ])
             ->add('image', FileType::class, array(
                 'mapped'=> false,
-                'required' => false,
+                'required' => true,
                 'constraints'=> array(
                     new Image()
                 )

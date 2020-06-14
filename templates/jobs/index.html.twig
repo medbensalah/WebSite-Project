@@ -1,20 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello JobsController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {{ form(form) }}
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block title %}Job{% endblock %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/mohamed/PhpstormProjects/web/Web/src/Controller/JobsController.php'|file_link(0) }}">src/Controller/JobsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/mohamed/PhpstormProjects/web/Web/templates/jobs/index.html.twig'|file_link(0) }}">templates/jobs/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-form/bootstrap.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/job_form.css') }}">
 {% endblock %}

@@ -18,7 +18,7 @@ class Job
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $photo;
 
@@ -42,7 +42,12 @@ class Job
      * @ORM\ManyToOne(targetEntity=Categories::class, inversedBy="jobs")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private $categorie;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $confirmed;
 
     public function getId(): ?int
     {
@@ -97,14 +102,26 @@ class Job
         return $this;
     }
 
-    public function getCategory(): ?Categories
+    public function getCategorie(): ?Categories
     {
-        return $this->category;
+        return $this->categorie;
     }
 
-    public function setCategory(?Categories $category): self
+    public function setCategorie(?Categories $categorie): self
     {
-        $this->category = $category;
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getConfirmed(): ?bool
+    {
+        return $this->confirmed;
+    }
+
+    public function setConfirmed(bool $confirmed): self
+    {
+        $this->confirmed = $confirmed;
 
         return $this;
     }
