@@ -1,0 +1,42 @@
+.tabRow {
+
+    display: flex;
+    /*justify-content: space-between;*/
+    margin: 10px 10px 10px 10px;
+    border-radius: 10px;
+    border: 1px solid #66512c;
+    background-color: rgba(146, 70, 0, 0.15);
+    box-shadow: 3px 3px 3px 0 rgba(0,0,0,.7);
+}
+
+.jobType {
+    font-size: 18px;
+    font-weight: bold;
+    color:#0069d9 !important;
+
+}
+
+a {
+    text-decoration: none !important;
+}
+td>a {
+    color: black ;
+}
+
+li>a {
+    color: black !important;
+    background: rgba(255, 223, 126, 0.5) !important;
+}
+li.active>a{
+    text-decoration: none !important;
+    border: none !important;
+    background-color: rgba(146, 70, 0, 0.35) !important;
+
+}
+.jobType:hover {
+    color: red !important;
+}
+.jobDesc>p {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+}

@@ -15,7 +15,7 @@
 <div class="page_container">
     <header>
         <div class="logo">
-            <a href="{{ path('landing_page') }}">
+            <a href="">
                 <img src="{{ asset('img/logo.png') }}" alt="logo">
             </a>
         </div>
@@ -30,16 +30,13 @@
                     <p class="title">Catégories</p></a>
                 <div class="dropdown-content">
                     {% for categorie in categories %}
-                    <a href="#">{{ categorie.profession }}</a>
+                    <a href="{{ path('jobs.search.cat', {'id': categorie.id }) }}">{{ categorie.profession }}</a>
                     {% endfor %}
                 </div>
             </div>
-            <a href="#" class="item S {% if current == 2 %} active {% endif %} ">
+            <a href="{{ path('job.search.form') }}" class="item S {% if current == 2 %} active {% endif %} ">
                 <i class="fa fa-search fa-2x carved" aria-hidden="true"></i>
-
                 <p class="title">Recherche</p>
-
-                <input type="text" name="search">
             </a>
         </div>
 {#        {% if userFromCookie is not defined %}#}
@@ -64,8 +61,8 @@
                         <div class="dropdown-content" id="user-menu">
                             <a href="{{ path('user.alter') }}">Modifier mon compte</a>
                             <a href="{{ path('job.add') }}">Deposer une offre</a>
-                            <a href="">Voir mes offres</a>
-                            <a href="">Support</a>
+                            <a href="{{ path('jobs.edit.user',{'id': user.id}) }}">Voir mes offres</a>
+
                             <a href="{{ path('user.log_out') }}">Déconnexion</a>
                         </div>
                     </div>

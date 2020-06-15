@@ -351,7 +351,13 @@ class UserController extends AbstractController
                     $image->move($destination, $path);
                     $user->setPhoto('../img/Profile/userProfileImages/'.$path);
                 } catch(FileException $fe) {
-                    echo $fe;
+                    $this->addFlash('file_error',"erreur d'envoie de l'image, veuileez réessayer.");
+
+                    return $this->render('user/alter_user.html.twig', [
+                        'form' => $form->createView(),
+                        'current' => -1,
+                        'categories' => $categories
+                    ]);
                 }
             }
             $session->set('user', $user);

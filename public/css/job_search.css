@@ -1,0 +1,23 @@
+.confirmer {
+    margin-top: 20px;
+    margin-left: 75%;
+    font-size: 28px;
+    color: black;
+    border: 1px black solid;
+    left: 70%
+}
+
+.confirmer:hover {
+
+    color: white;
+    background-color: black;
+}
+
+fieldset{
+    border: none;
+    padding: 0;
+}
+
+a {
+    text-decoration: none !important;
+}

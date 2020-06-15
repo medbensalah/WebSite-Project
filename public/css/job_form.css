@@ -15,6 +15,11 @@ label {
     margin-left: 10px;
     font-size: 22px;
 }
+footer {
+    position: relative;
+    margin-top: 100px;
+}
+
 .form-control {
     width: 400px;
     margin-left: 50px;

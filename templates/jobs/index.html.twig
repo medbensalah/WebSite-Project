@@ -1,6 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+    {% for message in app.session.flashBag.get('file_error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
     {{ form(form) }}
 {% endblock %}
 

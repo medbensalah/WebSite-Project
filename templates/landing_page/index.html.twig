@@ -6,7 +6,7 @@
         {% for categorie in categories %}
             <div class="mySlides fade">
                 <div class="numbertext">{{ loop.index }} / {{ loop.length }}</div>
-                <a href="#">
+                <a href="{{ path('jobs.search.cat', {'id': categorie.id }) }}">
                     <img src="{{ asset(categorie.img) }}" style="width: 100%; height: 500px">
                 </a>
                 <h1 class="text">{{ categorie.profession }}</h1>
@@ -58,8 +58,8 @@
         </div>
     </div>
     <div class="advert-buttons">
-        <a href="#" id="embauche">Je veux embaucher</a>
-        <a href="#">Je veux travailler</a>
+        <a href="{{ path('jobs.surf') }}" id="embauche">Je veux embaucher</a>
+        <a href="{{ path('job.add') }}">Je veux travailler</a>
     </div>
 {% endblock %}
 

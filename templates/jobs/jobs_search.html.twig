@@ -1,0 +1,52 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+    <form action="{{ path('jobs.search') }}" method="get">
+<h1 style="margin-left: 20px">Recherche</h1>
+    <div style="display: flex">
+    <fieldset style="margin-left: 35px;
+                    width: 30%">
+        <legend>
+            <h2 style="margin-bottom: 15px">Par Gouvernorat</h2>
+        </legend>
+        {% for gouvvernorat in gouvernorats %}
+            <div>
+            <input style="margin-left: 12px" type="checkbox" name="gov[]" value={{ gouvvernorat.gov }}>
+            <label style="margin: 5px" for={{ gouvvernorat.gov }}> {{ gouvvernorat.gov }} </label>
+            </div>
+        {% endfor %}
+    </fieldset>
+    <fieldset style="margin-left: 35px;
+                    width: 30%">
+        <legend>
+            <h2 style="margin-bottom: 15px">Par Categorie</h2>
+        </legend>
+        {% for categorie in categories %}
+            <div>
+                <input style="margin-left: 12px" type="checkbox" name="cat[]" value={{ categorie.profession }}>
+                <label style="margin: 5px" for={{ categorie.profession }}> {{ categorie.profession }} </label>
+            </div>
+        {% endfor %}
+    </fieldset>
+    <fieldset style="margin-left: 35px;
+                    width: 30%">
+        <legend>
+            <h2 style="margin-bottom: 15px">Par Mots Clés</h2>
+        </legend>
+        <div style=>
+            <input type="text" name="description" id="textSearch" placeholder="Recherche...">
+            <label for="textSearch">
+                <i class="fa fa-search"></i>
+            </label>
+        </div>
+    </fieldset>
+    </div>
+        <input class="confirmer" type="submit" value="Confirmer">
+    </form>
+{% endblock %}
+
+{% block stylesheets %}
+{#    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}">#}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/job_search.css') }}">
+{% endblock %}
