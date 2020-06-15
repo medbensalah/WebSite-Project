@@ -39,13 +39,11 @@
             <div id="text">{{ job.user.telephone }}</div>
         </div>
         <tr class="tabRow" onclick="on({{ job.id }})">
-            <td class="jobImg">
-                <a href="">
+            <td class="jobImg" onclick="on({{ job.id }})">
                 <img class="jobImg" width="250px" height="200px" src="{{ asset(job.photo) }}" alt="">
-                </a>
             </td>
             <td style="margin: 0;display: flex;; padding-right: 0">
-                <a href="">
+                <div>
                 <div class="jobType">
                     {{ job.categorie }}: {{ job.user.prenom }} {{ job.user.nom }} {{ job.user.gouvernorat.gov }}
 
@@ -54,7 +52,7 @@
                     <h5>Déposé le: {{ job.created|date('Y-m-d') }}</h5>
                     <p>{{ job.description|u.wordwrap(300)|nl2br }}</p>
                 </div>
-                </a>
+                </div>
 
                 {% if show is defined %}
                     {% if show == 1 %}
