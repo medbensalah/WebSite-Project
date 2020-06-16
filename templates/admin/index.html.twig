@@ -2,12 +2,12 @@
 
 {% block page1 %}
     <script src="{{ asset('node_modules/chart.js/dist/Chart.js') }}"></script>
-    <div class="userCount">
+    <div class="userCount" id="data" data-week-id="{{ weekActivity }}" data-month-id="{{ monthActivity }}" data-year-id="{{ yearActivity }}">
         <canvas id="current"></canvas>
         <div class="chartGroup">
-            <canvas id="week" onclick="chart(7)"></canvas>
-            <canvas id="month" onclick="chart(30)"></canvas>
-            <canvas id="year" onclick="chart(365)"></canvas>
+            <canvas id="week" onclick="chart(7, {{ weekActivity }})"></canvas>
+            <canvas id="month" onclick="chart(30, {{ monthActivity }})"></canvas>
+            <canvas id="year" onclick="chart(365, {{ yearActivity }})"></canvas>
         </div>
     </div>
 

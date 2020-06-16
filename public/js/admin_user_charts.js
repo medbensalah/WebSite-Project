@@ -1,13 +1,16 @@
 var current = document.getElementById('current');
 current.classList.add("week");
 
+let weekActivity = JSON.parse(document.querySelector('#data').dataset.weekId);
+let monthActivity = JSON.parse(document.querySelector('#data').dataset.monthId);
+let yearActivity = JSON.parse(document.querySelector('#data').dataset.yearId);
 
+chart(7, weekActivity)
+charts(7, weekActivity)
+charts(30, monthActivity)
+charts(365, yearActivity)
 
-chart(7);
-charts(30);
-charts(7);
-charts(365);
-function charts(x) {
+function charts(x, activity) {
     switch (x) {
         case 7:
             classe = 'week';
@@ -27,7 +30,7 @@ function charts(x) {
             labels: xlabel,
             datasets: [{
                 label: 'Users/Day',
-                data: [12, 19, 3, 5, 2, 3],
+                data: activity,
                 borderColor:  "rgba(30,158,5, 1)",
                 borderWidth: 1,
                 backgroundColor: "rgba(30,158,5,0.3)",
@@ -43,6 +46,7 @@ function charts(x) {
                 yAxes: [{
                     ticks: {
                         beginAtZero:true,
+                        callback: function(value) {if (value % 1 === 0) {return value;}},
                         fontColor: 'black',
                     },
                     gridLines: {
@@ -63,7 +67,8 @@ function charts(x) {
     });
 }
 
-function chart(x) {
+function chart(x, activity) {
+    console.log(activity);
     const ctx = document.getElementById('current').getContext('2d');
     const xlabel = getData(x);
     const myChart = new Chart(ctx, {
@@ -72,7 +77,7 @@ function chart(x) {
             labels: xlabel,
             datasets: [{
                 label: 'Users/Day',
-                data: [12, 19, 3, 5, 2, 3],
+                data: activity,
                 borderColor:  "rgba(30,158,5, 1)",
                 borderWidth: 1,
                 backgroundColor: "rgba(30,158,5,0.3)",
@@ -89,9 +94,10 @@ function chart(x) {
                 yAxes: [{
                     ticks: {
                         beginAtZero:true,
+                        callback: function(value) {if (value % 1 === 0) {return value;}},
                         fontColor: 'black',
                         fontSize: 20
-                    },
+                    }
                 }],
                 xAxes: [{
                     ticks: {

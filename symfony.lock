@@ -1,4 +1,7 @@
 {
+    "beberlei/doctrineextensions": {
+        "version": "v1.2.6"
+    },
     "captcha-com/captcha": {
         "version": "4.2.5"
     },

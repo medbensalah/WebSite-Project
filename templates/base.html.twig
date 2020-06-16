@@ -45,7 +45,7 @@
                 {% if user is not null %}
 {#                    {% set exists = 1 %}#}
                     <div class="badge dropdown">
-                        <div class="menu connected" onclick="myFunction()">
+                        <div class="menu connected" onclick="drop()">
                             <a href="{{ path('user.profile', {'id':user.id}) }}" >
                                 <p class="title">{{ user.Prenom }} {{ user.nom }}</p>
                                 <img style="border-radius: 50%" height="35px" width="35px" src="{{ user.photo }}">
@@ -110,7 +110,9 @@
         </div>
     </footer>
 </div>
+
 <script src="{{ asset('js/landingPage.js') }}"></script>
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+{% endblock %}
 </body>
 </html>
