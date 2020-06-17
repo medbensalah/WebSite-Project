@@ -8,22 +8,10 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-<div class="navbar">
-    <nav class="nav">
-            <span class="acc">
-                connected as: img here
-            </span>
-        <button class="nav-item is-active" active-color="blue">Home</button>
-        <button class="nav-item" active-color="green">User mode</button>
-        <button class="nav-item" active-color="red">admin mode</button>
-        <span class="nav-indicator"></span>
-    </nav>
-</div>
 
 <div class="ct" id="t1">
     <div class="ct" id="t2">
         <div class="ct" id="t3">
-            <div class="ct" id="t4">
                 <section>
                     <ul>
                         <li>
@@ -34,9 +22,6 @@
                         </li>
                         <li>
                             <a href="#t3"><i class="icon fa fa-briefcase" id="tres"></i></a>
-                        </li>
-                        <li>
-                            <a href="#t4"><i class="icon fa fa-dribbble" id="cuatro"></i></a>
                         </li>
                     </ul>
 
@@ -56,19 +41,12 @@
                         {% endblock %}
                     </div>
 
-
-                    <div class="page" id="p4">
-                        {% block page4 %}
-                        {% endblock %}
-                    </div>
                 </section>
 
-            </div>
         </div>
     </div>
 </div>
 {% block javascripts %}
-    <script src="{{ asset('js/admin_navbar.js') }}"></script>
 {% endblock %}
 </body>
 </html>

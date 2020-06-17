@@ -16,15 +16,11 @@ class User
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="string", length=255 )
      */
     private $id;
 
-    public function setId(): void
-    {
-        $this->id = $this->md5_hex_to_dec(md5(uniqid()));
-    }
 
     /**
      * @ORM\Column(type="string", length=40)
@@ -97,7 +93,7 @@ class User
         $this->job = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

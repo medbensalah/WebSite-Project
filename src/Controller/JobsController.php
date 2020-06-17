@@ -223,4 +223,18 @@ class JobsController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("job/confirm/{id}", name="job.confirm")
+     * @param Job $job
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
+     */
+    public function confirmJob(Job $job, Request $request, EntityManagerInterface $manager){
+        $job->setConfirmed(true);
+        $manager->persist($job);
+        $manager->flush();
+        return $this->redirectToRoute('admin');
+    }
+
 }

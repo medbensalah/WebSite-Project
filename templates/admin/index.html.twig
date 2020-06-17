@@ -3,21 +3,150 @@
 {% block page1 %}
     <script src="{{ asset('node_modules/chart.js/dist/Chart.js') }}"></script>
     <div class="userCount" id="data" data-week-id="{{ weekActivity }}" data-month-id="{{ monthActivity }}" data-year-id="{{ yearActivity }}">
+        <div style="display: flex">
         <canvas id="current"></canvas>
         <div class="chartGroup">
             <canvas id="week" onclick="chart(7, {{ weekActivity }})"></canvas>
             <canvas id="month" onclick="chart(30, {{ monthActivity }})"></canvas>
             <canvas id="year" onclick="chart(365, {{ yearActivity }})"></canvas>
         </div>
+        </div>
+    </div>
+    <h1 style="margin: 15px auto 10px 80px">Users online today</h1>
+    <div class="today">
+        <span style="width: {{ usersToday }}%; text-align: right"> {{ userCountToday }} / {{ users }}</span>
+    </div>
+{% endblock %}
+
+{% block page2 %}
+    <div id="page2">
+    <div class="title">
+        <span>View all users</span>
     </div>
 
+        <table>
+            <thead>
+                <th>Photo</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>First name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Governorate</th>
+                <th>Last Login</th>
+                <th>Verified</th>
+            </thead>
+            <tbody>
+            {% for user in allUsers %}
+                <tr class="{% if loop.index is odd %} yellowRow {% else %} blueRow {% endif %}">
+                    <td><img src="{{ asset(user.photo) }}" style="border-radius: 50%" width="30px" height="30px" alt=""></td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.telephone }}</td>
+                    <td>{{ user.gouvernorat }}</td>
+                    <td>{{ user.active|date('Y-m-d') }}</td>
+                    <td>{{ user.verified }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
+    </div>
 {% endblock %}
+
+
+{% block page3 %}
+    <style>
+        footer {
+            position: absolute;
+            top: 100%;
+        }
+        .overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        #text{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 50px;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+    </style>
+    <div id="page3">
+    <div class="title">
+        <span>View all jobs</span>
+    </div>
+
+        <table>
+            <thead>
+                <th>userId</th>
+                <th>ID</th>
+                <th>type</th>
+                <th>description</th>
+                <th>Governorate</th>
+                <th>created</th>
+                <th>confirm</th>
+            </thead>
+            <tbody>
+            {% for job in jobs %}
+                <div id="{{ job.id }}" class="overlay" onclick="off({{ job.id }})">
+                    <div id="text">
+                        <img src="{{ asset(job.photo) }}" alt="">
+                    </div>
+                </div>
+                <tr class="{% if loop.index is odd %} yellowRow {% else %} blueRow {% endif %}">
+                    <td onclick="on({{ job.id }})">{{ job.user.id }}</td>
+                    <td onclick="on({{ job.id }})">{{ job.id }}</td>
+                    <td onclick="on({{ job.id }})">{{ job.categorie }}</td>
+                    <td onclick="on({{ job.id }})">{{ job.description }}</td>
+                    <td onclick="on({{ job.id }})">{{ job.user.gouvernorat }}</td>
+                    <td onclick="on({{ job.id }})">{{ job.created|date('Y-m-d') }}</td>
+                    <td>
+                        {% if job.confirmed != 1 %}
+                            <a href="{{ path('job.confirm',{'id':job.id}) }}">
+                            <i class="fa fa-check fa-2x" style="color: green"></i>
+                            </a>
+                        {% else %}
+                            {{ job.confirmed }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <script>
+        function on(id) {
+            document.getElementById(id).style.display = "block";
+        }
+
+        function off(id) {
+            document.getElementById(id).style.display = "none";
+        }
+    </script>
+{% endblock %}
+
 
 {% block javascripts %}
     <script src="{{ asset('js/admin_user_charts.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/admin_1.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 {% endblock %}

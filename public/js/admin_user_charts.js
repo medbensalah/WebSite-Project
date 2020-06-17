@@ -29,7 +29,7 @@ function charts(x, activity) {
         data: {
             labels: xlabel,
             datasets: [{
-                label: 'Users/Day',
+                label: 'UsersTrace/Day(Last time connected)',
                 data: activity,
                 borderColor:  "rgba(30,158,5, 1)",
                 borderWidth: 1,
@@ -68,7 +68,6 @@ function charts(x, activity) {
 }
 
 function chart(x, activity) {
-    console.log(activity);
     const ctx = document.getElementById('current').getContext('2d');
     const xlabel = getData(x);
     const myChart = new Chart(ctx, {
@@ -76,7 +75,7 @@ function chart(x, activity) {
         data: {
             labels: xlabel,
             datasets: [{
-                label: 'Users/Day',
+                label: 'UsersTrace/Day(Last time connected)',
                 data: activity,
                 borderColor:  "rgba(30,158,5, 1)",
                 borderWidth: 1,

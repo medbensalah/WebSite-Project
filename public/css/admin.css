@@ -1,0 +1,156 @@
+canvas {
+    position: relative;
+    background: #fefefe;
+    border-radius: 10px;
+    width: 300px !important;
+    height: 150px !important;
+    margin: 10px;
+}
+
+.userCount {
+    position: relative;
+    margin-left: 70px;
+    margin-top: 10px;
+    margin-right: 20px;
+    background: #5a6268;
+    padding: 8px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#current {
+    width: 930px !important;
+    height: 470px !important;
+}
+
+.today {
+    height: 20px;  /* Can be anything */
+    margin-left: 70px;
+    margin-top: 10px;
+    margin-right: 20px;
+    position: relative;
+    background: #555;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    padding: 10px;
+    box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+.today > span {
+    display: block;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgb(43,194,83);
+    box-shadow:
+            inset 0 2px 9px  rgba(255,255,255,0.3),
+            inset 0 -2px 6px rgba(0,0,0,0.4);
+    position: relative;
+}
+
+#page2, #page3 {
+    margin-right: 80px;
+}
+
+.title {
+    margin: 15px 5px 10px 20px;
+    background: #DDDDDD;
+    border-radius: 12px;
+}
+.title>span {
+    color: black;
+    font-size: 32px;
+    margin: auto auto 8px 15px
+}
+table {
+    table-layout: fixed;
+    width: 100%;
+    margin: 12px 50px 0 10px;
+    border-collapse: collapse;
+}
+thead {
+    background: #5a6268;
+    border-bottom: 2px solid whitesmoke;
+}
+th{
+    border-right: 1px whitesmoke solid;
+}
+thead th:nth-child(1) {
+    width: 35%;
+}
+
+thead th:nth-child(2) {
+    width: 70%;
+}
+
+thead th:nth-child(3) {
+    width: 50%;
+}
+
+thead th:nth-child(4) {
+    width: 60%;
+}
+thead th:nth-child(5) {
+    width: 100%;
+}
+thead th:nth-child(6) {
+    width: 40%;
+}
+thead th:nth-child(7) {
+    width: 60%;
+}
+thead th:nth-child(8) {
+    width: 50%;
+}
+thead th:nth-child(9) {
+    width: 28%;
+}
+
+td{
+    padding-top: 5px;
+}
+.yellowRow td {
+    text-align: center;
+    vertical-align: center;
+    background: #efe4c2;
+    color: #3c3c3c;
+}
+.yellowRow:hover td{
+    background: #9d8f64;
+    color: whitesmoke;
+}
+.blueRow td {
+    text-align: center;
+    vertical-align: center;
+    background: #c7d9ee;
+    color: #3c3c3c;
+}
+.blueRow:hover td{
+    background: #597799;
+    color: whitesmoke;
+}
+
+#page3 thead th:nth-child(1) {
+    width: 60%;
+}
+
+#page3 thead th:nth-child(2) {
+    width: 10%;
+}
+
+#page3 thead th:nth-child(3) {
+    width: 40%;
+}
+
+#page3 thead th:nth-child(4) {
+    width: 100%;
+}
+#page3 thead th:nth-child(5) {
+    width: 40%;
+}
+#page3 thead th:nth-child(6) {
+    width: 30%;
+}
+#page3 thead th:nth-child(7) {
+    width: 20%;
+}

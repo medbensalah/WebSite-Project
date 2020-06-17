@@ -29,18 +29,14 @@ section {
 
 #p2 {
     left: 100%;
-    background: #FF5722;
+    background: whitesmoke;
 }
 
 #p3 {
     left: 200%;
-    background: #593C1F;
+    background: whitesmoke;
 }
 
-#p4 {
-    left: 300%;
-    background: deeppink;
-}
 
 ul {
     position: fixed;
@@ -171,63 +167,6 @@ a {
     transition-delay: 1s;
 }
 
-.nav {
-    z-index: 2;
-    left: 30%;
-    position: absolute;
-    display: inline-flex;
-    max-width: 100%;
-    background-color: #040505;
-    padding: 0 20px;
-    border-radius: 40px;
-    box-shadow: 0 10px 40px rgba(4, 5, 5, .8);
-    opacity: 0;
-    transition: opacity .5s linear;
-}
-
-
-.navbar:hover .nav {
-    opacity: 1;
-}
-
-.nav-item {
-    color: #83818c;
-    padding: 20px;
-    text-decoration: none;
-    transition: .3s;
-    margin: 0 6px;
-    z-index: 1;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    position: relative;
-}
-
-button{
-    background-color: #040505;
-    color: #040505;
-    border: #040505;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    font-size: large;
-}
-
-.nav-item:not(.is-active):hover:before {
-    opacity: 1;
-    bottom: 0;
-}
-
-
-.nav-item:not(.is-active):hover { color: #333; }
-
-.nav-indicator {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    transition: .4s;
-    height: 5px;
-    z-index: 1;
-    border-radius: 8px 8px 0 0;
-}
 
 @media (max-width: 580px) {
     .nav { overflow: auto; }

@@ -113,8 +113,6 @@ fieldset > div {
 }
 #dataset2 {
     border: 1px black solid;
-    display: flex;
-    justify-content: space-between;
     margin: 50px 50px 50px 50px;
     border-radius: 15px;
     padding-left: 12px;
