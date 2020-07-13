@@ -22,8 +22,8 @@ class MailController extends AbstractController
     public function sendVerificationEmail(Session $session) {
         $user = $session->get('signUser');
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
-            ->setUsername('taarafchi.no.reply@gmail.com')
-            ->setPassword('taarafchi123');
+            ->setUsername('5adamni.DoNotReply@gmail.com')
+            ->setPassword('5edma123.');
 
         $mailer = new Swift_Mailer($transport);
         $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();

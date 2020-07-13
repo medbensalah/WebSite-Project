@@ -49,7 +49,7 @@ class UserType extends AbstractType
             )
             ->add('description', TextareaType::class, [
                 'attr' => array('cols' => '50', 'rows' => '6'),
-                'required' => false
+                'required' => true
             ])
             ->add('confirmer', SubmitType::class)
         ;

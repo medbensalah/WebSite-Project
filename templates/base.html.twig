@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}تعرفشي؟!{% endblock %}</title>
+    <title>{% block title %}5edma{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('node_modules/font-awesome/css/font-awesome.css') }}">
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/Client.css') }}">
@@ -15,7 +15,7 @@
 <div class="page_container">
     <header>
         <div class="logo">
-            <a href="">
+            <a href="{{ path('landing_page') }}">
                 <img src="{{ asset('img/logo.png') }}" alt="logo">
             </a>
         </div>

@@ -17,7 +17,7 @@
                         <a class="page-link" href="{{ path('jobs.search.cat', { 'page' : p,'cat':cat}) }}">{{ p }}</a>
                     </li>
                 {% endfor %}
-                <li class="{% if currentPage < nbPages-1 %} page-item {% else %} page-item disabled {% endif %}">
+                <li class="{% if currentPage < nbPages %} page-item {% else %} page-item disabled {% endif %}">
                     <a class="page-link" href="{{ path('jobs.search.cat', { 'page' : currentPage + 1, 'cat':cat  }) }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
@@ -28,4 +28,5 @@
     </div>
     {% endif %}
 {% endblock %}
+
 

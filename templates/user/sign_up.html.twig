@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Sign Up!{% endblock %}
+{% block title %}S'inscrire'{% endblock %}
 
 {% block body %}
     <h1>Veuillez remplir ce formulaire pour créer un compte</h1>
@@ -27,17 +27,18 @@
                 <label for="user_password" class="required">Mot de passe</label>
                 <input type="password" id="user_password" name="passwordCheck" required="required" class="form-control"></div>
         </div>
+        </div>
+
         {% for message in app.session.flashBag.get('alert') %}
             <div class="alert alert-danger carved">
                 {{ message }}
             </div>
         {% endfor %}
-        </div>
     </div>
     <div id="dataset3">
 
         <div class="captcha">
-            <div class="g-recaptcha" data-sitekey="6Ld9-f4UAAAAAIk8aKlP1EJYXUmG8K770hxFrNID"></div>
+            <div class="g-recaptcha" data-sitekey="6LdP2bAZAAAAANbAXX8Eh9mIU2OF5wi4kNFUsf1s"></div>
         </div>
         {{ form_row(form.telephone) }}
         {{ form_row(form.gouvernorat) }}

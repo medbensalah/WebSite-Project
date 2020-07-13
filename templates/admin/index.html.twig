@@ -121,6 +121,9 @@
                             <a href="{{ path('job.confirm',{'id':job.id}) }}">
                             <i class="fa fa-check fa-2x" style="color: green"></i>
                             </a>
+                            <a href="{{ path('job.admin.delete',{'id':job.id}) }}">
+                            <i class="fa fa-times fa-2x" style="color: red"></i>
+                            </a>
                         {% else %}
                             {{ job.confirmed }}
                         {% endif %}

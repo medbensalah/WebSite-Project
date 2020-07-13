@@ -34,8 +34,8 @@ class AdminController extends AbstractController
             'verified' => 'ASC']
         );
         $jobs = $this->getDoctrine()->getRepository(Job::class)->findBy([],[
-            'created' => 'ASC',
-            'confirmed' => 'ASC'
+            'confirmed' => 'ASC',
+            'created' => 'DESC'
         ]);
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',

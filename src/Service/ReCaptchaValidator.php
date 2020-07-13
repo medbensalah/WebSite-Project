@@ -22,7 +22,7 @@ class ReCaptchaValidator
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-            "secret" => "6Ld9-f4UAAAAALopnvCMVDtIs11WxevF0TtuRuOB", "response" => $recaptcha));
+            "secret" => "6LdP2bAZAAAAAP_sT_gK1qA5relVwIT1EZEoqmco", "response" => $recaptcha));
         $response = curl_exec($ch);
         curl_close($ch);
         $data = json_decode($response);

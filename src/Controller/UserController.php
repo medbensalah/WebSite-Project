@@ -55,8 +55,9 @@ class UserController extends AbstractController
         if ($form->isSubmitted() &&
         $form->isValid() &&
         ($request->request->get('terms') == 1) &&
-        ($request->request->get('privacy') == 1) &&
-        $captcha->captchaverify($request)
+        ($request->request->get('privacy') == 1)
+//            &&
+//        $captcha->captchaverify($request)
         ) {
             $newuser = $request->request->get('user');
             $check = $request->request->get('passwordCheck');
@@ -66,6 +67,7 @@ class UserController extends AbstractController
             }
             try {
                 $session->set('signUser', $user);
+                $user->setVerified(1);
                 $manager->persist($user);
                 $manager->flush();
                 return $this->redirectToRoute('email');
@@ -79,11 +81,11 @@ class UserController extends AbstractController
                 !(($request->request->get('terms') == 1) &&
                 ($request->request->get('privacy') == 1))) {
 
-                $this->addFlash('required', "In order to proceed with the sign up you need to agree to our terms of use and privacy policy");
+                $this->addFlash('required', "V");
             }
             if ($form->isSubmitted() &&
                 !$captcha->captchaverify($request)) {
-                $this->addFlash('required', "In order to proceed with the sign up you need to confirm the reCAPTCHA");
+                $this->addFlash('required', "Veuille confirer le reCAPTCHA");
             }
             $categories=$this->getDoctrine()->getRepository(Categories::class)->findAll();
 

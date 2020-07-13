@@ -99,11 +99,10 @@ class JobsController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Job::class);
         $nbEnregistrements = $repository->count(array());
         $nbpage = ($nbEnregistrements % 15) ? $nbEnregistrements / 15 + 1 : $nbEnregistrements / 15;
-//        dd($page);
         $jobs = $repository->findAllJobs(($page - 1) * 15, 15);
         return $this->render('jobs/surfJobs.html.twig', [
             'jobs' => $jobs,
-            'nbPages' => $nbpage,
+            'nbPages' => floor($nbpage),
             'currentPage' => $page,
             'categories' => $categories
         ]);
@@ -147,7 +146,7 @@ class JobsController extends AbstractController
 //dd($nbpage);
         return $this->render('jobs/searchJobs.html.twig', [
             'jobs' => $jobs,
-            'nbPages' => $nbpage,
+            'nbPages' => floor($nbpage),
             'currentPage' => $page,
             'categories' => $categories,
             'govs' => $govs,
@@ -180,7 +179,7 @@ class JobsController extends AbstractController
 
         return $this->render('jobs/searchCatJobs.html.twig', [
             'jobs' => $jobs,
-            'nbPages' => $nbpage,
+            'nbPages' => floor($nbpage),
             'currentPage' => $page,
             'categories' => $categories,
             'cat' => $cat
@@ -215,7 +214,7 @@ class JobsController extends AbstractController
 
         return $this->render('jobs/userJobs.html.twig', [
             'jobs' => $jobs,
-            'nbPages' => $nbpage,
+            'nbPages' => floor($nbpage),
             'currentPage' => $page,
             'categories' => $categories,
             'show' => $show,
@@ -233,6 +232,18 @@ class JobsController extends AbstractController
     public function confirmJob(Job $job, Request $request, EntityManagerInterface $manager){
         $job->setConfirmed(true);
         $manager->persist($job);
+        $manager->flush();
+        return $this->redirectToRoute('admin');
+    }
+    /**
+     * @Route("job/delete/admin/{id}", name="job.admin.delete")
+     * @param Job $job
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
+     */
+    public function deleteJobAdmin(Job $job, Request $request, EntityManagerInterface $manager){
+        $manager->remove($job);
         $manager->flush();
         return $this->redirectToRoute('admin');
     }

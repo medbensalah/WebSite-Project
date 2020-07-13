@@ -40,20 +40,11 @@
                 {% endif %}
             </div>
         </div>
-{#        TODO#}
-{#        <div class="rate">#}
-{#            <h2>Note</h2>#}
-{#            <div class="note">#}
-{#                {% if exist is defined %}#}
-{#                #}
-{#                {% endif %}#}
-{#            </div>#}
-{#        </div>#}
     </div>
 {% endblock %}
 
 {% block title %}
-
+    {{ profile.prenom }} {{ profile.nom }}
 {% endblock %}
 
 {% block stylesheets %}

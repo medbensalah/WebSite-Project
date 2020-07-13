@@ -84,7 +84,7 @@
                         <a class="page-link" href="{{ path('jobs.surf', { 'page' : p }) }}">{{ p }}</a>
                     </li>
                 {% endfor %}
-                <li class="{% if currentPage < nbPages-1 %} page-item {% else %} page-item disabled {% endif %}">
+                <li class="{% if currentPage < nbPages %} page-item {% else %} page-item disabled {% endif %}">
                     <a class="page-link" href="{{ path('jobs.surf', { 'page' : currentPage + 1 }) }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
@@ -109,4 +109,7 @@
     <link rel="stylesheet" href="{{ asset('css/job_surf.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-table/bootstrap.css') }}">
     {{ parent() }}
+{% endblock %}
+ {% block title %}
+    Offres
 {% endblock %}
